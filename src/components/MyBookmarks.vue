@@ -32,7 +32,6 @@
           </c-menu-button>
           <c-menu-list>
             <c-menu-item>Open in new tab</c-menu-item>
-            <c-menu-item>Open in private window</c-menu-item>
             <c-divider />
             <c-menu-item>Copy URL</c-menu-item>
             <c-divider />
