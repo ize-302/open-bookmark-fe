@@ -34,11 +34,7 @@
         </c-flex>
 
         <c-menu>
-          <c-menu-button
-            padding="0"
-            background="brand.green"
-            variant-color="transparent"
-          >
+          <c-menu-button padding="0" variant-color="transparent">
             <c-icon name="ellipsis-v" color="#666" />
           </c-menu-button>
           <c-menu-list>
