@@ -1,7 +1,7 @@
 <template>
   <div>
-    <c-button @click="open" color="brand.green" variant="outline"
-      >Add bookmark</c-button
+    <c-button @click="open" bg="brand.green" color="white"
+      >+ New bookmark</c-button
     >
     <c-modal
       :is-open="isOpen"
@@ -108,6 +108,10 @@ export default {
           status: "success",
           position: "top",
         });
+        this.title = "";
+        this.url = "";
+        this.description = "";
+        this.isPrivate = false;
         this.$emit("fetchBookmarks");
       });
     },
