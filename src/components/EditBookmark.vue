@@ -1,24 +1,21 @@
 <template>
   <div>
-    <c-button @click="open" color="brand.green" variant="outline"
-      >Add bookmark</c-button
-    >
-    <c-modal
-      :is-open="isOpen"
+    <!-- <c-button ref="btnRef" @click="isOpen = true">Open Drawer</c-button> -->
+    <c-menu-item ref="btnRef" @click="isOpen = true">Edit</c-menu-item>
+
+    <c-drawer
+      :isOpen="isOpen"
+      placement="right"
       :on-close="close"
-      :block-scroll-on-mount="blockScrollOnMount"
-      isCentered
-      size="500px"
+      :initialFocusRef="() => $refs.inputInsideModal"
     >
-      <c-modal-content
-        padding="40px 20px 40px 20px"
-        ref="content"
-        borderRadius="5px"
-      >
-        <c-modal-header>Add Bookmark</c-modal-header>
-        <c-modal-close-button />
-        <c-modal-body>
-          <form @submit.prevent="addBookmark">
+      <c-drawer-overlay />
+      <c-drawer-content>
+        <c-drawer-close-button />
+        <c-drawer-header>Edit Bookmark</c-drawer-header>
+
+        <c-drawer-body>
+          <form @submit.prevent="updateBookmark">
             <c-form-control is-required>
               <c-form-label for="title">Title</c-form-label>
               <c-input
@@ -63,25 +60,21 @@
               </c-form-control>
             </c-flex>
             <c-button type="submit" variant-color="green" width="100%"
-              >Add</c-button
+              >Update</c-button
             >
           </form>
-        </c-modal-body>
-      </c-modal-content>
-      <c-modal-overlay />
-    </c-modal>
+        </c-drawer-body>
+      </c-drawer-content>
+    </c-drawer>
   </div>
 </template>
 
 <script>
-import BookmarkService from "@/services/bookmarks";
-
 export default {
-  name: "add-bookmark",
+  name: "editBookmark",
   data() {
     return {
       isOpen: false,
-      blockScrollOnMount: false,
       title: "",
       url: "",
       description: "",
@@ -89,28 +82,10 @@ export default {
     };
   },
   methods: {
-    open() {
-      this.isOpen = true;
-    },
     close() {
       this.isOpen = false;
     },
-    addBookmark() {
-      BookmarkService.create(
-        this.title,
-        this.url,
-        this.description,
-        this.isPrivate
-      ).then((response) => {
-        this.close();
-        this.$toast({
-          title: response.message,
-          status: "success",
-          position: "top",
-        });
-        this.$emit("fetchBookmarks");
-      });
-    },
+    updateBookmark() {},
   },
 };
 </script>

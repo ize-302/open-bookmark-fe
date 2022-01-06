@@ -5,37 +5,49 @@
       <add-bookmark @fetchBookmarks="fetchBookmarks" />
     </c-flex>
     <c-list mt="20px">
-      <c-list-item
+      <c-pseudo-box
+        as="list-item"
         v-for="(bookmark, index) in bookmarks"
         :key="index"
         :bg="index % 2 && 'brand.lightGreen'"
-        padding="10px"
+        padding="5px 0 5px 20px"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
+        :_hover="{ bg: 'gray.100' }"
+        cursor="pointer"
       >
         <c-flex alignItems="baseline">
-          <c-icon v-if="bookmark.isPrivate" marginRight="10px" name="lock" />
-
-          <c-link
-            color="brand.green"
-            :href="bookmark.url"
-            is-external
-            fontSize="16px"
+          <img
+            :src="
+              'https://s2.googleusercontent.com/s2/favicons?domain_url=' +
+              bookmark.url
+            "
+          />
+          <c-text ml="10px" fontWeight="500" fontSize="16px"
             >{{ bookmark.title }}
-          </c-link>
+          </c-text>
+          <c-icon v-if="bookmark.isPrivate" size="14px" ml="6px" name="lock" />
         </c-flex>
 
         <c-menu>
-          <c-menu-button variant="ghost">
-            <c-icon name="ellipsis-v" />
+          <c-menu-button
+            padding="0"
+            background="brand.green"
+            variant-color="transparent"
+          >
+            <c-icon name="ellipsis-v" color="#666" />
           </c-menu-button>
           <c-menu-list>
-            <c-menu-item>Open in new tab</c-menu-item>
+            <c-menu-item>
+              <c-link :href="bookmark.url" is-external
+                >Open in new tab
+              </c-link></c-menu-item
+            >
             <c-divider />
             <c-menu-item>Copy URL</c-menu-item>
             <c-divider />
-            <c-menu-item>Edit</c-menu-item>
+            <edit-bookmark />
             <c-menu-item @click="deleteBookmark(bookmark.id)"
               >Delete</c-menu-item
             >
@@ -45,7 +57,7 @@
             >
           </c-menu-list>
         </c-menu>
-      </c-list-item>
+      </c-pseudo-box>
     </c-list>
   </c-box>
 </template>
@@ -53,6 +65,7 @@
 <script>
 import BookmarkService from "@/services/bookmarks";
 import AddBookmark from "@/components/AddBookmark.vue";
+import EditBookmark from "./EditBookmark.vue";
 
 export default {
   name: "MyBookmarks",
@@ -64,6 +77,7 @@ export default {
   },
   components: {
     AddBookmark,
+    EditBookmark,
   },
   mounted() {
     this.fetchBookmarks();
