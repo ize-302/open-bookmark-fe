@@ -2,7 +2,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import Chakra from "@chakra-ui/vue";
+import Chakra, {
+  CThemeProvider,
+  CColorModeProvider,
+  CReset,
+  CBox,
+} from "@chakra-ui/vue";
 import Axios from "@/plugins/axios";
 import customTheme from "./custom-theme.js";
 import VueClipboard from "vue-clipboard2";
@@ -14,6 +19,8 @@ import {
   faGlobeAfrica,
   faLock,
   faEllipsisV,
+  faMoon,
+  faSun,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.use(Chakra, {
@@ -26,6 +33,8 @@ Vue.use(Chakra, {
       faGlobeAfrica,
       faLock,
       faEllipsisV,
+      faMoon,
+      faSun,
     },
   },
   extendTheme: customTheme,
@@ -39,5 +48,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h) =>
+    h(CThemeProvider, [h(CColorModeProvider, [h(CBox, [h(CReset), h(App)])])]),
 }).$mount("#app");
