@@ -100,7 +100,11 @@ export default {
         this.isPrivate
       ).then((response) => {
         this.close();
-        console.log(response);
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
         this.$emit("fetchBookmarks");
       });
     },

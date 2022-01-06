@@ -79,7 +79,11 @@ export default {
     deleteBookmark(id) {
       BookmarkService.delete(id).then((response) => {
         this.fetchBookmarks();
-        console.log(response);
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
       });
     },
   },
