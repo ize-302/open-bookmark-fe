@@ -29,6 +29,7 @@
             <c-form-control is-required>
               <c-form-label for="url">URL</c-form-label>
               <c-input
+                disabled="disabled"
                 id="url"
                 v-model="url"
                 placeholder="https://vue.chakra-ui.com/formcontrol"
