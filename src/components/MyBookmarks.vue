@@ -47,7 +47,7 @@
             <c-divider />
             <c-menu-item>Copy URL</c-menu-item>
             <c-divider />
-            <edit-bookmark />
+            <edit-bookmark :id="bookmark.id" @fetchBookmarks="fetchBookmarks" />
             <c-menu-item @click="deleteBookmark(bookmark.id)"
               >Delete</c-menu-item
             >
@@ -68,7 +68,7 @@ import AddBookmark from "@/components/AddBookmark.vue";
 import EditBookmark from "./EditBookmark.vue";
 
 export default {
-  name: "MyBookmarks",
+  name: "myBookmarks",
   data() {
     return {
       bookmarks: [],

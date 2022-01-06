@@ -70,8 +70,11 @@
 </template>
 
 <script>
+import BookmarkService from "@/services/bookmarks";
+
 export default {
   name: "editBookmark",
+  props: ["id"],
   data() {
     return {
       isOpen: false,
@@ -81,11 +84,39 @@ export default {
       isPrivate: false,
     };
   },
+  watch: {
+    isOpen() {
+      if (this.isOpen) {
+        BookmarkService.getBookmark(this.id).then((response) => {
+          this.title = response.title;
+          this.url = response.url;
+          this.description = response.description;
+          this.isPrivate = response.isPrivate;
+        });
+      }
+    },
+  },
   methods: {
     close() {
       this.isOpen = false;
     },
-    updateBookmark() {},
+    updateBookmark() {
+      BookmarkService.updateBookmark({
+        id: this.id,
+        title: this.title,
+        url: this.url,
+        description: this.description,
+        isPrivate: this.isPrivate,
+      }).then((response) => {
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
+        this.close();
+        this.$emit("fetchBookmarks");
+      });
+    },
   },
 };
 </script>

@@ -3,7 +3,7 @@ import Vue from "vue";
 const ENDPOINT = `/bookmarks`;
 
 export default {
-  getByID(id) {
+  getBookmark(id) {
     return Vue.http.get(`${ENDPOINT}/${id}`).then((response) => response.data);
   },
   bookmarks() {
@@ -24,6 +24,17 @@ export default {
   delete(id) {
     return Vue.http
       .delete(`${ENDPOINT}/${id}`)
+      .then((response) => response.data);
+  },
+
+  updateBookmark({ id, title, url, description, isPrivate }) {
+    return Vue.http
+      .patch(`${ENDPOINT}/${id}`, {
+        title,
+        url,
+        isPrivate,
+        description,
+      })
       .then((response) => response.data);
   },
 };
