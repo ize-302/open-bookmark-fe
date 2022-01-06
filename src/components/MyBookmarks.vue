@@ -51,10 +51,6 @@
             <c-menu-item @click="deleteBookmark(bookmark.id)"
               >Delete</c-menu-item
             >
-            <c-divider />
-            <c-menu-item
-              >Make {{ bookmark.isPrivate ? "public" : "private" }}</c-menu-item
-            >
           </c-menu-list>
         </c-menu>
       </c-pseudo-box>
