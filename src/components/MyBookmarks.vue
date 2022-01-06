@@ -51,7 +51,7 @@
             <c-menu-item>Copy URL</c-menu-item>
             <c-divider />
             <edit-bookmark :id="bookmark.id" @fetchBookmarks="fetchBookmarks" />
-            <c-menu-item @click="deleteBookmark(bookmark.id)"
+            <c-menu-item @click="deleteBookmark(bookmark._id)"
               >Delete</c-menu-item
             >
           </c-menu-list>
