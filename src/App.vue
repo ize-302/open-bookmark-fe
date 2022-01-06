@@ -1,8 +1,6 @@
 <template>
-  <c-theme-provider>
-    <c-reset />
-    <c-box maxW="800px" margin="0 auto" h="100vh" py="50px">
-      <!-- <c-button
+  <c-box maxW="800px" margin="0 auto" h="100vh" py="50px">
+    <!-- <c-button
         @click="chakraToggleColorMode"
         position="fixed"
         bottom="20px"
@@ -15,9 +13,8 @@
           :color="chakraColorMode === 'dark' ? 'blackAlpha.800' : 'orange'"
         />
       </c-button> -->
-      <router-view />
-    </c-box>
-  </c-theme-provider>
+    <router-view />
+  </c-box>
 </template>
 
 <script>
