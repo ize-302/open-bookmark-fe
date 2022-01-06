@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import Chakra, { CThemeProvider, CReset } from "@chakra-ui/vue";
+import Chakra from "@chakra-ui/vue";
 import Axios from "@/plugins/axios";
 import customTheme from "./custom-theme.js";
 
@@ -27,6 +27,7 @@ Vue.use(Chakra, {
   },
   extendTheme: customTheme,
 });
+
 // custom axios plugin
 Vue.use(Axios);
 
@@ -35,5 +36,5 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: (h) => h(CThemeProvider, [h(CReset), h(App)]),
+  render: (h) => h(App),
 }).$mount("#app");
