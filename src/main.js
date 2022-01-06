@@ -5,6 +5,9 @@ import store from "./store";
 import Chakra from "@chakra-ui/vue";
 import Axios from "@/plugins/axios";
 import customTheme from "./custom-theme.js";
+import VueClipboard from "vue-clipboard2";
+
+Vue.use(VueClipboard);
 
 // Import FontAwesome icons
 import {

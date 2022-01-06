@@ -48,7 +48,11 @@
               </c-link></c-menu-item
             >
             <c-divider />
-            <c-menu-item>Copy URL</c-menu-item>
+            <c-menu-item
+              v-clipboard:copy="bookmark.url"
+              v-clipboard:success="onCopy"
+              >Copy URL</c-menu-item
+            >
             <c-divider />
             <edit-bookmark
               :id="bookmark._id"
@@ -91,7 +95,13 @@ export default {
         this.pageOptions = data.paginator;
       });
     },
-
+    onCopy: function () {
+      this.$toast({
+        title: "URL copied",
+        status: "success",
+        position: "top",
+      });
+    },
     deleteBookmark(id) {
       BookmarkService.delete(id).then((response) => {
         this.fetchBookmarks();
