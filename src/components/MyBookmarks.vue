@@ -10,7 +10,7 @@
         v-for="(bookmark, index) in bookmarks"
         :key="index"
         :bg="index % 2 && 'brand.lightGreen'"
-        padding="5px 0 5px 20px"
+        padding="5px 0 5px 5px"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
