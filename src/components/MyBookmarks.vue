@@ -4,7 +4,10 @@
       <c-heading fontSize="24px">My Bookmarks</c-heading>
       <add-bookmark @fetchBookmarks="fetchBookmarks" />
     </c-flex>
-    <c-list mt="20px">
+    <c-grid v-if="bookmarks.length === 0" placeItems="center" height="50vh">
+      <c-heading color="#ddd">No saved Bookmarks!</c-heading>
+    </c-grid>
+    <c-list v-else mt="20px">
       <c-pseudo-box
         as="list-item"
         v-for="(bookmark, index) in bookmarks"
