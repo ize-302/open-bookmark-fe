@@ -1,11 +1,13 @@
 <template>
   <c-box>
+    <navbar />
     <my-bookmarks />
   </c-box>
 </template>
 
 <script>
 import MyBookmarks from "@/components/MyBookmarks.vue";
+import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: "home",
@@ -17,6 +19,7 @@ export default {
   },
   components: {
     MyBookmarks,
+    Navbar,
   },
 };
 </script>

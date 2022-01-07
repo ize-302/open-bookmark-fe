@@ -1,5 +1,5 @@
 <template>
-  <c-box>
+  <c-box maxW="800px" margin="0 auto" h="100vh" py="50px">
     <c-flex justifyContent="space-between">
       <c-heading fontSize="24px">My Bookmarks</c-heading>
       <add-bookmark @fetchBookmarks="refreshBookmarks()" />

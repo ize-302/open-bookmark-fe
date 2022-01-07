@@ -1,5 +1,5 @@
 <template>
-  <c-box maxW="800px" margin="0 auto" h="100vh" py="50px">
+  <c-box>
     <!-- <c-button
         @click="chakraToggleColorMode"
         position="fixed"

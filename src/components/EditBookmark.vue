@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <!-- <c-button ref="btnRef" @click="isOpen = true">Open Drawer</c-button> -->
+  <c-box>
     <c-menu-item ref="btnRef" @click="isOpen = true">Edit</c-menu-item>
-
     <c-drawer
       :isOpen="isOpen"
       placement="right"
@@ -68,7 +66,7 @@
         </c-drawer-body>
       </c-drawer-content>
     </c-drawer>
-  </div>
+  </c-box>
 </template>
 
 <script>
