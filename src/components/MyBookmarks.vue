@@ -9,7 +9,6 @@
     </c-grid>
     <c-box v-else mt="20px">
       <c-pseudo-box
-        as="box"
         v-for="(bookmark, index) in bookmarks"
         :key="index"
         :bg="index % 2 && 'brand.lightGreen'"
