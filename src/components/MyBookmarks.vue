@@ -70,7 +70,7 @@
         </c-menu>
       </c-pseudo-box>
       <pagination
-        :page="parseInt(currentPage)"
+        :page="currentPage"
         :resultsPerPage="perPage"
         :totalResults="pageOptions.total_items"
         @changePage="changePage"
@@ -101,13 +101,13 @@ export default {
   },
   mounted() {
     this.fetchBookmarks({
-      page: this.currentPage ? this.currentPage : 1,
+      page: this.currentPage,
       per_page: this.perPage,
     });
   },
   computed: {
     currentPage() {
-      return this.$route.query.page;
+      return this.$route.query.page ? parseInt(this.$route.query.page) : 1;
     },
   },
   watch: {
