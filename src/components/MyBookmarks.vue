@@ -7,9 +7,8 @@
     <c-grid v-if="bookmarks.length === 0" placeItems="center" height="50vh">
       <c-heading color="#ddd">No saved Bookmarks!</c-heading>
     </c-grid>
-    <c-list v-else mt="20px">
-      <c-pseudo-box
-        as="list-item"
+    <c-box v-else mt="20px">
+      <c-box
         v-for="(bookmark, index) in bookmarks"
         :key="index"
         :bg="index % 2 && 'brand.lightGreen'"
@@ -20,18 +19,30 @@
         :_hover="{ bg: 'gray.100' }"
         cursor="pointer"
       >
-        <c-flex alignItems="baseline">
-          <img
-            :src="
-              'https://s2.googleusercontent.com/s2/favicons?domain_url=' +
-              bookmark.url
-            "
-          />
-          <c-text ml="10px" fontWeight="500" fontSize="16px"
-            >{{ bookmark.title }}
-          </c-text>
-          <c-icon v-if="bookmark.isPrivate" size="14px" ml="6px" name="lock" />
-        </c-flex>
+        <c-tooltip
+          :label="
+            bookmark.description ? bookmark.description : 'No description'
+          "
+          placement="bottom"
+        >
+          <c-flex alignItems="baseline">
+            <img
+              :src="
+                'https://s2.googleusercontent.com/s2/favicons?domain_url=' +
+                bookmark.url
+              "
+            />
+            <c-text ml="10px" fontWeight="500" fontSize="16px"
+              >{{ bookmark.title }}
+            </c-text>
+            <c-icon
+              v-if="bookmark.isPrivate"
+              size="14px"
+              ml="6px"
+              name="lock"
+            />
+          </c-flex>
+        </c-tooltip>
 
         <c-menu>
           <c-menu-button padding="0" variant-color="transparent">
@@ -59,8 +70,8 @@
             >
           </c-menu-list>
         </c-menu>
-      </c-pseudo-box>
-    </c-list>
+      </c-box>
+    </c-box>
   </c-box>
 </template>
 
