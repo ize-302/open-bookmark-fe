@@ -8,7 +8,7 @@
 import MyBookmarks from "@/components/MyBookmarks.vue";
 
 export default {
-  name: "Home",
+  name: "home",
   data() {
     return {
       bookmarks: [],
