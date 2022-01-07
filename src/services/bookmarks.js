@@ -6,14 +6,14 @@ export default {
   getBookmark(id) {
     return Vue.http.get(`${ENDPOINT}/${id}`).then((response) => response.data);
   },
-  bookmarks() {
+  getAllBookmarks() {
     return Vue.http
       .get(`${ENDPOINT}?q=&page=1&per_page=10`)
       .then((response) => response.data);
   },
-  create(title, url, description, isPrivate) {
+  createBookmark({ title, url, description, isPrivate }) {
     return Vue.http
-      .post(`${ENDPOINT}/create`, {
+      .post(`${ENDPOINT}`, {
         title,
         url,
         isPrivate,
@@ -21,7 +21,7 @@ export default {
       })
       .then((response) => response.data);
   },
-  delete(id) {
+  deleteBookmark(id) {
     return Vue.http
       .delete(`${ENDPOINT}/${id}`)
       .then((response) => response.data);

@@ -96,12 +96,12 @@ export default {
       this.isOpen = false;
     },
     addBookmark() {
-      BookmarkService.create(
-        this.title,
-        this.url,
-        this.description,
-        this.isPrivate
-      ).then((response) => {
+      BookmarkService.createBookmark({
+        title: this.title,
+        url: this.url,
+        description: this.description,
+        isPrivate: this.isPrivate,
+      }).then((response) => {
         this.close();
         this.$toast({
           title: response.message,

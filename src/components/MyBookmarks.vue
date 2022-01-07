@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     fetchBookmarks() {
-      BookmarkService.bookmarks().then((data) => {
+      BookmarkService.getAllBookmarks().then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
       });
@@ -99,7 +99,7 @@ export default {
       });
     },
     deleteBookmark(id) {
-      BookmarkService.delete(id).then((response) => {
+      BookmarkService.deleteBookmark(id).then((response) => {
         this.fetchBookmarks();
         this.$toast({
           title: response.message,
