@@ -73,7 +73,7 @@
         </c-menu>
       </c-pseudo-box>
       <pagination
-        :page="pageOptions.page"
+        :page="parseInt(currentPage)"
         :resultsPerPage="perPage"
         :totalResults="pageOptions.total_items"
         @changePage="changePage"
@@ -103,19 +103,32 @@ export default {
     Pagination,
   },
   mounted() {
-    this.fetchBookmarks({ page: 1, per_page: this.perPage });
+    this.fetchBookmarks({
+      page: this.currentPage ? this.currentPage : 1,
+      per_page: this.perPage,
+    });
+  },
+  computed: {
+    currentPage() {
+      return this.$route.query.page;
+    },
+  },
+  watch: {
+    "$route.query.page"(newPage) {
+      this.fetchBookmarks({ page: newPage, per_page: this.perPage });
+    },
   },
   methods: {
     changePage(pageToGo) {
-      this.fetchBookmarks({ page: pageToGo, per_page: this.perPage });
+      this.$router.push({ query: { page: pageToGo } });
     },
     refreshBookmarks() {
       this.fetchBookmarks({
-        page: this.pageOptions.page,
+        page: this.currentPage,
         per_page: this.perPage,
       });
     },
-    fetchBookmarks({ page = this.pageOptions.page, per_page = this.perPage }) {
+    fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
       BookmarkService.getAllBookmarks({ page, per_page }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
