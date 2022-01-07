@@ -13,7 +13,7 @@ export default {
   },
   createBookmark({ title, url, comment, isPrivate }) {
     return Vue.http
-      .post(`${ENDPOINT}`, {
+      .post(`${ENDPOINT}/create`, {
         title,
         url,
         isPrivate,
@@ -23,18 +23,23 @@ export default {
   },
   deleteBookmark(id) {
     return Vue.http
-      .delete(`${ENDPOINT}/${id}`)
+      .delete(`${ENDPOINT}/${id}/delete`)
       .then((response) => response.data);
   },
 
   updateBookmark({ id, title, url, comment, isPrivate }) {
     return Vue.http
-      .patch(`${ENDPOINT}/${id}`, {
+      .patch(`${ENDPOINT}/${id}/update`, {
         title,
         url,
         isPrivate,
         comment,
       })
+      .then((response) => response.data);
+  },
+  trashBookmark(id) {
+    return Vue.http
+      .patch(`${ENDPOINT}/${id}/trash`)
       .then((response) => response.data);
   },
 };

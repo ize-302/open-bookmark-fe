@@ -63,7 +63,7 @@
               :id="bookmark._id"
               @fetchBookmarks="refreshBookmarks()"
             />
-            <c-menu-item @click="deleteBookmark(bookmark._id)"
+            <c-menu-item @click="trashBookmark(bookmark._id)"
               >Delete</c-menu-item
             >
           </c-menu-list>
@@ -138,8 +138,8 @@ export default {
         position: "top",
       });
     },
-    deleteBookmark(id) {
-      BookmarkService.deleteBookmark(id).then((response) => {
+    trashBookmark(id) {
+      BookmarkService.trashBookmark(id).then((response) => {
         this.refreshBookmarks();
         this.$toast({
           title: response.message,
