@@ -81,6 +81,7 @@
 
 <script>
 import BookmarkService from "@/services/bookmarks";
+import TrashService from "@/services/trash";
 import AddBookmark from "@/components/AddBookmark.vue";
 import EditBookmark from "@/components/EditBookmark.vue";
 import Pagination from "@/components/Pagination.vue";
@@ -139,7 +140,7 @@ export default {
       });
     },
     trashBookmark(id) {
-      BookmarkService.trashBookmark(id).then((response) => {
+      TrashService.trashBookmark(id).then((response) => {
         this.refreshBookmarks();
         this.$toast({
           title: response.message,
