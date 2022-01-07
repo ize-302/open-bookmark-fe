@@ -24,7 +24,7 @@
               <c-input
                 v-model="title"
                 id="title"
-                placeholder="ChakraUI form control"
+                placeholder="Title"
                 mb="20px"
               />
             </c-form-control>
@@ -34,7 +34,7 @@
               <c-input
                 id="url"
                 v-model="url"
-                placeholder="https://vue.chakra-ui.com/formcontrol"
+                placeholder="URL here"
                 mb="20px"
               />
             </c-form-control>
