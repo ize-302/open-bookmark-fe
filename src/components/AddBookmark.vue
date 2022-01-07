@@ -40,10 +40,10 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="description">Description</c-form-label>
+              <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
-                v-model="description"
-                id="description"
+                v-model="comment"
+                id="comment"
                 placeholder="Here is a sample placeholder"
                 mb="20px"
               />
@@ -84,7 +84,7 @@ export default {
       blockScrollOnMount: false,
       title: "",
       url: "",
-      description: "",
+      comment: "",
       isPrivate: false,
     };
   },
@@ -99,7 +99,7 @@ export default {
       BookmarkService.createBookmark({
         title: this.title,
         url: this.url,
-        description: this.description,
+        comment: this.comment,
         isPrivate: this.isPrivate,
       }).then((response) => {
         this.close();
@@ -110,7 +110,7 @@ export default {
         });
         this.title = "";
         this.url = "";
-        this.description = "";
+        this.comment = "";
         this.isPrivate = false;
         this.$emit("fetchBookmarks");
       });

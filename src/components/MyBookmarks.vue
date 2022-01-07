@@ -21,9 +21,7 @@
         cursor="pointer"
       >
         <c-tooltip
-          :label="
-            bookmark.description ? bookmark.description : 'No description'
-          "
+          :label="bookmark.comment ? bookmark.comment : 'No comment'"
           placement="bottom"
         >
           <c-flex alignItems="baseline">

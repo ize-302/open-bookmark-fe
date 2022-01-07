@@ -38,11 +38,11 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="description">Description</c-form-label>
+              <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
-                :value="description"
-                v-model="description"
-                id="description"
+                :value="comment"
+                v-model="comment"
+                id="comment"
                 placeholder="Here is a sample placeholder"
                 mb="20px"
               />
@@ -82,7 +82,7 @@ export default {
       isOpen: false,
       title: "",
       url: "",
-      description: "",
+      comment: "",
       isPrivate: false,
     };
   },
@@ -92,7 +92,7 @@ export default {
         BookmarkService.getBookmark(this.id).then((response) => {
           this.title = response.title;
           this.url = response.url;
-          this.description = response.description;
+          this.comment = response.comment;
           this.isPrivate = response.isPrivate;
         });
       }
@@ -107,7 +107,7 @@ export default {
         id: this.id,
         title: this.title,
         url: this.url,
-        description: this.description,
+        comment: this.comment,
         isPrivate: this.isPrivate,
       }).then((response) => {
         this.$toast({

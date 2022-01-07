@@ -11,13 +11,13 @@ export default {
       .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`)
       .then((response) => response.data);
   },
-  createBookmark({ title, url, description, isPrivate }) {
+  createBookmark({ title, url, comment, isPrivate }) {
     return Vue.http
       .post(`${ENDPOINT}`, {
         title,
         url,
         isPrivate,
-        description,
+        comment,
       })
       .then((response) => response.data);
   },
@@ -27,13 +27,13 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, description, isPrivate }) {
+  updateBookmark({ id, title, url, comment, isPrivate }) {
     return Vue.http
       .patch(`${ENDPOINT}/${id}`, {
         title,
         url,
         isPrivate,
-        description,
+        comment,
       })
       .then((response) => response.data);
   },
