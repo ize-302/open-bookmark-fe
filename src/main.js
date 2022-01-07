@@ -21,6 +21,8 @@ import {
   faEllipsisV,
   faMoon,
   faSun,
+  faArrowRight,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.use(Chakra, {
@@ -35,6 +37,8 @@ Vue.use(Chakra, {
       faEllipsisV,
       faMoon,
       faSun,
+      faArrowRight,
+      faArrowLeft,
     },
   },
   extendTheme: customTheme,

@@ -71,6 +71,12 @@
           </c-menu-list>
         </c-menu>
       </c-box>
+      <pagination
+        :page="pageOptions.page"
+        :resultsPerPage="perPage"
+        :totalResults="pageOptions.total_items"
+        @changePage="changePage"
+      />
     </c-box>
   </c-box>
 </template>
@@ -78,7 +84,8 @@
 <script>
 import BookmarkService from "@/services/bookmarks";
 import AddBookmark from "@/components/AddBookmark.vue";
-import EditBookmark from "./EditBookmark.vue";
+import EditBookmark from "@/components/EditBookmark.vue";
+import Pagination from "@/components/Pagination.vue";
 
 export default {
   name: "myBookmarks",
@@ -86,18 +93,23 @@ export default {
     return {
       bookmarks: [],
       pageOptions: {},
+      perPage: 1,
     };
   },
   components: {
     AddBookmark,
     EditBookmark,
+    Pagination,
   },
   mounted() {
-    this.fetchBookmarks();
+    this.fetchBookmarks({ page: 1, per_page: this.perPage });
   },
   methods: {
-    fetchBookmarks() {
-      BookmarkService.getAllBookmarks().then((data) => {
+    changePage(pageToGo) {
+      this.fetchBookmarks({ page: pageToGo, per_page: this.perPage });
+    },
+    fetchBookmarks({ page, per_page }) {
+      BookmarkService.getAllBookmarks({ page, per_page }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
       });

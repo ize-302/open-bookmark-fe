@@ -6,9 +6,9 @@ export default {
   getBookmark(id) {
     return Vue.http.get(`${ENDPOINT}/${id}`).then((response) => response.data);
   },
-  getAllBookmarks() {
+  getAllBookmarks({ page, per_page }) {
     return Vue.http
-      .get(`${ENDPOINT}?q=&page=1&per_page=10`)
+      .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`)
       .then((response) => response.data);
   },
   createBookmark({ title, url, description, isPrivate }) {
