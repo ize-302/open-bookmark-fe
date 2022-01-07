@@ -1,6 +1,6 @@
 <template>
   <c-flex
-    mt="50px"
+    my="50px"
     flexDirection="column"
     justifyContent="center"
     alignItems="center"
