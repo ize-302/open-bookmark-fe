@@ -42,4 +42,9 @@ export default {
       .patch(`${ENDPOINT}/${id}/trash`)
       .then((response) => response.data);
   },
+  restoreBookmark(id) {
+    return Vue.http
+      .patch(`${ENDPOINT}/${id}/untrash`)
+      .then((response) => response.data);
+  },
 };
