@@ -17,7 +17,7 @@
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        :_hover="{ bg: 'gray.100' }"
+        :_hover="{ bg: 'green.50' }"
         cursor="pointer"
       >
         <c-tooltip
@@ -143,7 +143,7 @@ export default {
     },
     deleteBookmark(id) {
       BookmarkService.deleteBookmark(id).then((response) => {
-        this.fetchBookmarks();
+        this.refreshBookmarks();
         this.$toast({
           title: response.message,
           status: "success",
