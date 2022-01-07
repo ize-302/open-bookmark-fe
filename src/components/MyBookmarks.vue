@@ -2,13 +2,18 @@
   <c-box>
     <c-flex justifyContent="space-between">
       <c-heading fontSize="24px">My Bookmarks</c-heading>
-      <add-bookmark @fetchBookmarks="fetchBookmarks" />
+      <add-bookmark
+        @fetchBookmarks="
+          fetchBookmarks({ page: pageOptions.page, per_page: perPage })
+        "
+      />
     </c-flex>
     <c-grid v-if="bookmarks.length === 0" placeItems="center" height="50vh">
       <c-heading color="#ddd">No saved Bookmarks!</c-heading>
     </c-grid>
     <c-box v-else mt="20px">
-      <c-box
+      <c-pseudo-box
+        as="box"
         v-for="(bookmark, index) in bookmarks"
         :key="index"
         :bg="index % 2 && 'brand.lightGreen'"
@@ -63,14 +68,16 @@
             <c-divider />
             <edit-bookmark
               :id="bookmark._id"
-              @fetchBookmarks="fetchBookmarks"
+              @fetchBookmarks="
+                fetchBookmarks({ page: pageOptions.page, per_page: perPage })
+              "
             />
             <c-menu-item @click="deleteBookmark(bookmark._id)"
               >Delete</c-menu-item
             >
           </c-menu-list>
         </c-menu>
-      </c-box>
+      </c-pseudo-box>
       <pagination
         :page="pageOptions.page"
         :resultsPerPage="perPage"
@@ -93,7 +100,7 @@ export default {
     return {
       bookmarks: [],
       pageOptions: {},
-      perPage: 1,
+      perPage: 20,
     };
   },
   components: {
@@ -108,7 +115,7 @@ export default {
     changePage(pageToGo) {
       this.fetchBookmarks({ page: pageToGo, per_page: this.perPage });
     },
-    fetchBookmarks({ page, per_page }) {
+    fetchBookmarks({ page = this.pageOptions.page, per_page = this.perPage }) {
       BookmarkService.getAllBookmarks({ page, per_page }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
