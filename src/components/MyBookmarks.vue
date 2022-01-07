@@ -2,11 +2,7 @@
   <c-box>
     <c-flex justifyContent="space-between">
       <c-heading fontSize="24px">My Bookmarks</c-heading>
-      <add-bookmark
-        @fetchBookmarks="
-          fetchBookmarks({ page: pageOptions.page, per_page: perPage })
-        "
-      />
+      <add-bookmark @fetchBookmarks="refreshBookmarks()" />
     </c-flex>
     <c-grid v-if="bookmarks.length === 0" placeItems="center" height="50vh">
       <c-heading color="#ddd">No saved Bookmarks!</c-heading>
@@ -68,9 +64,7 @@
             <c-divider />
             <edit-bookmark
               :id="bookmark._id"
-              @fetchBookmarks="
-                fetchBookmarks({ page: pageOptions.page, per_page: perPage })
-              "
+              @fetchBookmarks="refreshBookmarks()"
             />
             <c-menu-item @click="deleteBookmark(bookmark._id)"
               >Delete</c-menu-item
@@ -114,6 +108,12 @@ export default {
   methods: {
     changePage(pageToGo) {
       this.fetchBookmarks({ page: pageToGo, per_page: this.perPage });
+    },
+    refreshBookmarks() {
+      this.fetchBookmarks({
+        page: this.pageOptions.page,
+        per_page: this.perPage,
+      });
     },
     fetchBookmarks({ page = this.pageOptions.page, per_page = this.perPage }) {
       BookmarkService.getAllBookmarks({ page, per_page }).then((data) => {
