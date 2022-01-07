@@ -40,6 +40,7 @@
             <c-form-control>
               <c-form-label for="description">Description</c-form-label>
               <c-textarea
+                :value="description"
                 v-model="description"
                 id="description"
                 placeholder="Here is a sample placeholder"
