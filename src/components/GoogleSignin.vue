@@ -11,7 +11,7 @@ export default {
     async signInWithGoogle() {
       const session = supabase.auth.session();
       if (session) {
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "myBookmarks" });
       } else {
         await supabase.auth.signIn({
           provider: "google",

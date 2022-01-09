@@ -6,11 +6,12 @@
     left="0"
     top="0"
     background="white"
+    zIndex="1"
   >
     <c-flex
       maxW="1500px"
       margin="0 auto"
-      px="0px"
+      px="20px"
       py="10px"
       justifyContent="space-between"
       alignItems="center"
@@ -33,15 +34,11 @@
           }}</c-text>
         </c-menu-button>
         <c-menu-list>
-          <c-menu-group title="Account">
-            <c-menu-item>My Profile</c-menu-item>
-            <c-menu-item>My Bookmarks</c-menu-item>
-            <c-menu-item>Change password</c-menu-item>
-          </c-menu-group>
+          <c-menu-item>My Profile</c-menu-item>
           <c-menu-divider />
           <c-menu-item>Trash</c-menu-item>
           <c-menu-divider />
-          <c-menu-item @click="signout()">LOGOUT</c-menu-item>
+          <c-menu-item @click="signout()" color="red.500">Log out</c-menu-item>
         </c-menu-list>
       </c-menu>
     </c-flex>
