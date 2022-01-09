@@ -56,11 +56,15 @@ export default {
     return {
       menu: [
         {
-          name: "Saved bookmarks",
+          name: "My bookmarks",
           path: "/my-bookmarks",
         },
         {
-          name: "Browse bookmarks",
+          name: "Saved bookmarks",
+          path: "/saved-bookmarks",
+        },
+        {
+          name: "Browse",
           path: "/browse",
         },
       ],
