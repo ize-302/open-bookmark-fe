@@ -20,7 +20,7 @@ export default {
   mounted() {
     supabase.auth.onAuthStateChange((event, session) => {
       saveTokenInCookies(session?.access_token);
-      this.$router.push({ name: "myBookmarks" });
+      location.href = "/my-bookmarks";
     });
   },
 };
