@@ -16,7 +16,7 @@
       justifyContent="space-between"
       alignItems="center"
     >
-      <c-heading fontSize="20px" color="brand.green">Open Bookmark</c-heading>
+      <c-heading fontSize="20px" color="brand.green">OpenBookmark</c-heading>
       <c-menu>
         <c-menu-button
           p="20px 10px"
