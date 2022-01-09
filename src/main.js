@@ -11,6 +11,7 @@ import Chakra, {
 import Axios from "@/plugins/axios";
 import customTheme from "./custom-theme.js";
 import VueClipboard from "vue-clipboard2";
+import customIcons from "./customIcons";
 
 Vue.use(VueClipboard);
 
@@ -30,6 +31,9 @@ Vue.use(Chakra, {
     // Here we state that we use `fa`
     // icons library for Chakra's
     // internal icon parser
+    extend: {
+      ...customIcons,
+    },
     iconPack: "fa",
     iconSet: {
       faGlobeAfrica,
