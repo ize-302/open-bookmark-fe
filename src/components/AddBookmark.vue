@@ -20,23 +20,31 @@
         <c-modal-body>
           <form @submit.prevent="addBookmark">
             <c-form-control is-required>
-              <c-form-label for="title">Title</c-form-label>
-              <c-input
-                v-model="title"
-                id="title"
-                placeholder="Title"
-                mb="20px"
-              />
-            </c-form-control>
-
-            <c-form-control is-required>
               <c-form-label for="url">URL</c-form-label>
+
               <c-input
                 id="url"
                 v-model="url"
                 placeholder="URL here"
                 mb="20px"
+                @blur="fetchUrlTitle()"
               />
+            </c-form-control>
+
+            <c-form-control is-required>
+              <c-form-label for="title">Title</c-form-label>
+              <c-input-group>
+                <c-input
+                  v-model="title"
+                  id="title"
+                  placeholder="Title"
+                  mb="20px"
+                  :disabled="loadingTitle"
+                />
+                <c-input-right-element
+                  ><c-spinner v-if="loadingTitle" />
+                </c-input-right-element>
+              </c-input-group>
             </c-form-control>
 
             <c-form-control>
@@ -75,6 +83,7 @@
 
 <script>
 import BookmarkService from "@/services/bookmarks";
+import OtherService from "@/services/others";
 
 export default {
   name: "add-bookmark",
@@ -86,6 +95,7 @@ export default {
       url: "",
       comment: "",
       isPrivate: false,
+      loadingTitle: false,
     };
   },
   methods: {
@@ -94,6 +104,17 @@ export default {
     },
     close() {
       this.isOpen = false;
+    },
+    fetchUrlTitle() {
+      this.loadingTitle = true;
+      OtherService.fetchUrlTitle(this.url)
+        .then((data) => {
+          this.title = data.title;
+          this.loadingTitle = false;
+        })
+        .catch(() => {
+          this.loadingTitle = false;
+        });
     },
     addBookmark() {
       BookmarkService.createBookmark({
