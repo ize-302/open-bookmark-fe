@@ -14,23 +14,23 @@
 
         <c-drawer-body>
           <form @submit.prevent="updateBookmark">
-            <c-form-control is-required>
-              <c-form-label for="title">Title</c-form-label>
-              <c-input
-                v-model="title"
-                id="title"
-                placeholder="Title"
-                mb="20px"
-              />
-            </c-form-control>
-
-            <c-form-control is-required>
+            <c-form-control>
               <c-form-label for="url">URL</c-form-label>
               <c-input
                 disabled="disabled"
                 id="url"
                 v-model="url"
                 placeholder="URL here"
+                mb="20px"
+              />
+            </c-form-control>
+
+            <c-form-control is-required>
+              <c-form-label for="title">Title</c-form-label>
+              <c-input
+                v-model="title"
+                id="title"
+                placeholder="Title"
                 mb="20px"
               />
             </c-form-control>
