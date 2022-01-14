@@ -22,9 +22,7 @@ export default {
   components: { GoogleSignin },
   name: "landing",
   mounted() {
-    console.log("env", process.env.VUE_APP_PUBLIC_SUPBASE_JWT_SECRET);
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log("session", session?.access_token);
       saveTokenInCookies(session?.access_token);
       if (getTokenFromCookies()) location.href = "/my-bookmarks";
     });
