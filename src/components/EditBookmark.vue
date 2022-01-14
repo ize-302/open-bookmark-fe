@@ -1,55 +1,44 @@
 <template>
-  <div>
-    <c-button @click="open" bg="brand.green" color="white"
-      >+ New bookmark</c-button
-    >
-    <c-modal
-      :is-open="isOpen"
+  <c-box>
+    <c-menu-item ref="btnRef" @click="isOpen = true">Edit</c-menu-item>
+    <c-drawer
+      :isOpen="isOpen"
+      placement="right"
       :on-close="close"
-      :block-scroll-on-mount="blockScrollOnMount"
-      isCentered
-      size="500px"
+      :initialFocusRef="() => $refs.inputInsideModal"
     >
-      <c-modal-content
-        padding="40px 20px 40px 20px"
-        ref="content"
-        borderRadius="5px"
-      >
-        <c-modal-header>Add Bookmark</c-modal-header>
-        <c-modal-close-button />
-        <c-modal-body>
-          <form @submit.prevent="addBookmark">
-            <c-form-control is-required>
-              <c-form-label for="url">URL</c-form-label>
+      <c-drawer-overlay />
+      <c-drawer-content>
+        <c-drawer-close-button />
+        <c-drawer-header>Edit Bookmark</c-drawer-header>
 
+        <c-drawer-body>
+          <form @submit.prevent="updateBookmark">
+            <c-form-control>
+              <c-form-label for="url">URL</c-form-label>
               <c-input
+                disabled="disabled"
                 id="url"
                 v-model="url"
                 placeholder="URL here"
                 mb="20px"
-                @blur="fetchUrlTitle()"
               />
             </c-form-control>
 
             <c-form-control is-required>
               <c-form-label for="title">Title</c-form-label>
-              <c-input-group>
-                <c-input
-                  v-model="title"
-                  id="title"
-                  placeholder="Title"
-                  mb="20px"
-                  :disabled="loadingTitle"
-                />
-                <c-input-right-element
-                  ><c-spinner v-if="loadingTitle" />
-                </c-input-right-element>
-              </c-input-group>
+              <c-input
+                v-model="title"
+                id="title"
+                placeholder="Title"
+                mb="20px"
+              />
             </c-form-control>
 
             <c-form-control>
               <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
+                :value="comment"
                 v-model="comment"
                 id="comment"
                 placeholder="Here is a sample placeholder"
@@ -71,68 +60,60 @@
               </c-form-control>
             </c-flex>
             <c-button type="submit" variant-color="green" width="100%"
-              >Add</c-button
+              >Update</c-button
             >
           </form>
-        </c-modal-body>
-      </c-modal-content>
-      <c-modal-overlay />
-    </c-modal>
-  </div>
+        </c-drawer-body>
+      </c-drawer-content>
+    </c-drawer>
+  </c-box>
 </template>
 
 <script>
 import BookmarkService from "@/services/bookmarks";
-import OtherService from "@/services/others";
 
 export default {
-  name: "add-bookmark",
+  name: "editBookmark",
+  props: ["id"],
   data() {
     return {
       isOpen: false,
-      blockScrollOnMount: false,
       title: "",
       url: "",
       comment: "",
       isPrivate: false,
-      loadingTitle: false,
     };
   },
-  methods: {
-    open() {
-      this.isOpen = true;
+  watch: {
+    isOpen() {
+      if (this.isOpen) {
+        BookmarkService.getBookmark(this.id).then((response) => {
+          this.title = response.title;
+          this.url = response.url;
+          this.comment = response.comment;
+          this.isPrivate = response.isPrivate;
+        });
+      }
     },
+  },
+  methods: {
     close() {
       this.isOpen = false;
     },
-    fetchUrlTitle() {
-      this.loadingTitle = true;
-      OtherService.fetchUrlTitle(this.url)
-        .then((data) => {
-          this.title = data.title;
-          this.loadingTitle = false;
-        })
-        .catch(() => {
-          this.loadingTitle = false;
-        });
-    },
-    addBookmark() {
-      BookmarkService.createBookmark({
+    updateBookmark() {
+      BookmarkService.updateBookmark({
+        id: this.id,
         title: this.title,
         url: this.url,
         comment: this.comment,
         isPrivate: this.isPrivate,
       }).then((response) => {
-        this.close();
         this.$toast({
           title: response.message,
           status: "success",
           position: "top",
         });
-        this.title = "";
-        this.url = "";
-        this.comment = "";
-        this.isPrivate = false;
+        this.close();
         this.$emit("fetchBookmarks");
       });
     },

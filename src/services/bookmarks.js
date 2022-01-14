@@ -1,31 +1,62 @@
 import Vue from "vue";
+import { supabase } from "../lib/supabase";
+const session = supabase.auth.session();
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${session?.access_token}`,
+};
 
 const ENDPOINT = `/bookmarks`;
 
 export default {
-  getByID(id) {
-    return Vue.prototype.$http
-      .get(`${ENDPOINT}/${id}`)
-      .then((response) => response.data);
+  getBookmark(id) {
+    return Vue.http.get(`${ENDPOINT}/${id}`).then((response) => response.data);
   },
-  bookmarks() {
-    return Vue.prototype.$http
-      .get(`${ENDPOINT}?q=&page=1&per_page=10`)
-      .then((response) => response.data);
-  },
-  create(title, url, description, isPrivate) {
-    return Vue.prototype.$http
-      .post(`${ENDPOINT}/create`, {
-        title,
-        url,
-        isPrivate,
-        description,
+  getAllBookmarks({ page, per_page }) {
+    return Vue.http
+      .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, {
+        headers,
       })
       .then((response) => response.data);
   },
-  delete(id) {
-    return Vue.prototype.$http
-      .delete(`${ENDPOINT}/${id}`)
+  createBookmark({ title, url, comment, isPrivate }) {
+    return Vue.http
+      .post(
+        `${ENDPOINT}/create`,
+        {
+          title,
+          url,
+          isPrivate,
+          comment,
+        },
+        {
+          headers,
+        }
+      )
+      .then((response) => response.data);
+  },
+  deleteBookmark(id) {
+    return Vue.http
+      .delete(`${ENDPOINT}/${id}/delete`, {
+        headers,
+      })
+      .then((response) => response.data);
+  },
+
+  updateBookmark({ id, title, url, comment, isPrivate }) {
+    return Vue.http
+      .patch(
+        `${ENDPOINT}/${id}/update`,
+        {
+          title,
+          url,
+          isPrivate,
+          comment,
+        },
+        {
+          headers,
+        }
+      )
       .then((response) => response.data);
   },
 };
