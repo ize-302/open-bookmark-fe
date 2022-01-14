@@ -13,10 +13,7 @@ export default {
       if (session) {
         this.$router.push({ name: "myBookmarks" });
       } else {
-        await supabase.auth.signIn(
-          { provider: "google" },
-          { redirectTo: window.location.origin }
-        );
+        await supabase.auth.signIn({ provider: "google" });
       }
     },
   },
