@@ -15,7 +15,7 @@ export default {
       } else {
         await supabase.auth.signIn(
           { provider: "google" },
-          { redirectTo: "https://open-bookmark-fe.vercel.app" }
+          { redirectTo: window.location.origin }
         );
       }
     },

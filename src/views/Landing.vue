@@ -13,7 +13,7 @@
 import GoogleSignin from "../components/GoogleSignin.vue";
 import {
   saveTokenInCookies,
-  // getTokenFromCookies,
+  getTokenFromCookies,
   // verifyToken,
 } from "@/utils/cookies";
 import { supabase } from "../lib/supabase";
@@ -26,7 +26,7 @@ export default {
     supabase.auth.onAuthStateChange((event, session) => {
       console.log("session", session?.access_token);
       saveTokenInCookies(session?.access_token);
-      // if (getTokenFromCookies()) location.href = "/my-bookmarks";
+      if (getTokenFromCookies()) location.href = "/my-bookmarks";
     });
   },
 };
