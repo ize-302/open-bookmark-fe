@@ -63,7 +63,6 @@ export default {
   },
   computed: {
     user() {
-      console.log(verifyToken(this.session?.access_token));
       return verifyToken(this.session?.access_token);
     },
   },
