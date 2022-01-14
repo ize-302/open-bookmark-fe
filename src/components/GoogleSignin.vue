@@ -13,9 +13,10 @@ export default {
       if (session) {
         this.$router.push({ name: "myBookmarks" });
       } else {
-        await supabase.auth.signIn({
-          provider: "google",
-        });
+        await supabase.auth.signIn(
+          { provider: "google" },
+          { redirectTo: "https://open-bookmark-fe.vercel.app" }
+        );
       }
     },
   },
