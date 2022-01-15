@@ -48,7 +48,7 @@ export default {
 <style lang="scss">
 .router-link-active {
   font-weight: 600;
-  color: #fff;
+  color: #fff !important;
   background: #58c184;
 }
 </style>
