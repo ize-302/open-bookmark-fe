@@ -15,7 +15,12 @@
       justifyContent="space-between"
       alignItems="center"
     >
-      <c-heading fontSize="20px" color="brand.green">OpenBookmark</c-heading>
+      <c-flex>
+        <sidebar-mobile />
+        <c-heading marginLeft="10px" fontSize="20px" color="brand.green"
+          >OpenBookmark</c-heading
+        >
+      </c-flex>
       <c-menu>
         <c-menu-button p="10px 5px" variant="solid" bg="brand.lightGreen">
           <c-avatar
@@ -48,12 +53,16 @@
 import { supabase } from "../lib/supabase";
 import { removeTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
+import SidebarMobile from "@/components/SidebarMobile.vue";
 
 export default {
   data() {
     return {
       session: supabase.auth.session(),
     };
+  },
+  components: {
+    SidebarMobile,
   },
   mounted() {
     if (!verifyToken(this.session?.access_token)) {
