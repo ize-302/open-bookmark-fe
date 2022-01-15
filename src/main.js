@@ -27,6 +27,7 @@ import {
   faSun,
   faArrowRight,
   faArrowLeft,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.use(Chakra, {
@@ -46,6 +47,7 @@ Vue.use(Chakra, {
       faSun,
       faArrowRight,
       faArrowLeft,
+      faBars,
     },
   },
   extendTheme: customTheme,
