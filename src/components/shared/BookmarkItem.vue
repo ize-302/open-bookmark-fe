@@ -33,17 +33,17 @@
         </c-menu-button>
         <c-menu-list>
           <c-menu-item>
-            <c-link :href="bookmark.url" is-external
-              >Open in new tab
-            </c-link></c-menu-item
-          >
+            <c-link :href="bookmark.url" is-external>Open in new tab </c-link>
+          </c-menu-item>
           <c-divider />
           <c-menu-item
             v-clipboard:copy="bookmark.url"
             v-clipboard:success="onCopy"
             >Copy URL</c-menu-item
           >
-          <c-divider />
+          <c-divider
+            v-if="currentPage === 'myBookmarks' || currentPage === 'trash'"
+          />
           <c-menu-item
             v-if="currentPage === 'myBookmarks'"
             @click="updatePrivacy()"
@@ -59,9 +59,6 @@
             color="red.300"
             @click="trashBookmark()"
             >Delete</c-menu-item
-          >
-          <c-menu-item v-if="currentPage === 'browse'" @click="saveBookmark()"
-            >Save bookmark</c-menu-item
           >
           <c-menu-item
             v-if="currentPage === 'trash'"
@@ -148,9 +145,6 @@ export default {
           position: "top",
         });
       });
-    },
-    saveBookmark() {
-      //
     },
   },
 };
