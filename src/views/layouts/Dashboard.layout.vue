@@ -60,10 +60,6 @@ export default {
           path: "/my-bookmarks",
         },
         {
-          name: "Saved bookmarks",
-          path: "/saved-bookmarks",
-        },
-        {
           name: "Browse",
           path: "/browse",
         },
