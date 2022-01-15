@@ -9,10 +9,10 @@ const headers = {
 const ENDPOINT = `/bookmarks`;
 
 export default {
-  getBookmark(id) {
+  getBookmarkById(id) {
     return Vue.http.get(`${ENDPOINT}/${id}`).then((response) => response.data);
   },
-  getAllBookmarks({ page, per_page }) {
+  fetchUserBookmarks({ page, per_page }) {
     return Vue.http
       .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, {
         headers,

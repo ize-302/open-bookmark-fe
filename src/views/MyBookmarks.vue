@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
-      BookmarkService.getAllBookmarks({ page, per_page }).then((data) => {
+      BookmarkService.fetchUserBookmarks({ page, per_page }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
       });

@@ -9,7 +9,7 @@ const headers = {
 const ENDPOINT = `/trash`;
 
 export default {
-  fetchTrashedBookmarks({ page, per_page }) {
+  fetchUserTrashedBookmarks({ page, per_page }) {
     return Vue.http
       .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, { headers })
       .then((response) => response.data);

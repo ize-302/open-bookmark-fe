@@ -87,7 +87,7 @@ export default {
   watch: {
     isOpen() {
       if (this.isOpen) {
-        BookmarkService.getBookmark(this.id).then((response) => {
+        BookmarkService.getBookmarkById(this.id).then((response) => {
           this.title = response.title;
           this.url = response.url;
           this.comment = response.comment;

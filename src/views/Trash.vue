@@ -44,10 +44,12 @@ export default {
   },
   methods: {
     fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
-      TrashService.fetchTrashedBookmarks({ page, per_page }).then((data) => {
-        this.bookmarks = data.items;
-        this.pageOptions = data.paginator;
-      });
+      TrashService.fetchUserTrashedBookmarks({ page, per_page }).then(
+        (data) => {
+          this.bookmarks = data.items;
+          this.pageOptions = data.paginator;
+        }
+      );
     },
   },
 };
