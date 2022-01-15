@@ -18,12 +18,7 @@
     >
       <c-heading fontSize="20px" color="brand.green">OpenBookmark</c-heading>
       <c-menu>
-        <c-menu-button
-          p="20px 10px"
-          right-icon="chevron-down"
-          variant="solid"
-          bg="brand.lightGreen"
-        >
+        <c-menu-button p="10px 5px" variant="solid" bg="brand.lightGreen">
           <c-avatar
             :name="user.user_metadata.full_name"
             :src="user.user_metadata.avatar_url"
@@ -35,10 +30,7 @@
         </c-menu-button>
         <c-menu-list>
           <c-menu-item>My Profile</c-menu-item>
-          <c-menu-divider />
-          <c-menu-item>Trash</c-menu-item>
-          <c-menu-divider />
-          <c-menu-item @click="signout()" color="red.500">Log out</c-menu-item>
+          <c-menu-item @click="signout()" color="red.300">Log out</c-menu-item>
         </c-menu-list>
       </c-menu>
     </c-flex>
@@ -63,6 +55,7 @@ export default {
   },
   computed: {
     user() {
+      console.log(this.session?.access_token);
       return verifyToken(this.session?.access_token);
     },
   },
