@@ -47,7 +47,7 @@
           <edit-bookmark
             v-if="currentPage === 'myBookmarks'"
             :id="bookmark._id"
-            @fetchBookmarks="refreshBookmarks()"
+            @fetchBookmarks="$emit('refreshBookmarks')"
           />
           <c-menu-item
             v-if="currentPage === 'myBookmarks'"
