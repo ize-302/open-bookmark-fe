@@ -6,7 +6,6 @@
     left="0"
     top="0"
     background="white"
-    zIndex="1"
   >
     <c-flex
       maxW="1500px"
@@ -24,11 +23,19 @@
             :src="user.user_metadata.avatar_url"
             size="sm"
           />
-          <c-text mx="7px" fontWeight="400" fontSize="16px">{{
-            user.user_metadata.full_name
-          }}</c-text>
+          <c-text
+            :display="['none', 'block']"
+            mx="7px"
+            fontWeight="400"
+            fontSize="16px"
+            >{{ user.user_metadata.full_name }}</c-text
+          >
         </c-menu-button>
         <c-menu-list>
+          <c-menu-group
+            :display="['block', 'none']"
+            :title="user.user_metadata.full_name"
+          />
           <c-menu-item>My Profile</c-menu-item>
           <c-menu-item @click="signout()" color="red.300">Log out</c-menu-item>
         </c-menu-list>
