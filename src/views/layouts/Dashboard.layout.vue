@@ -16,26 +16,7 @@
         position="relative"
         top="0"
       >
-        <c-stack rounded="md" position="sticky" top="80px">
-          <c-box v-for="(item, index) in menu" :key="index">
-            <c-link
-              :_hover="{
-                bg: 'green.200',
-                textDecoration: 'none',
-                color: 'white',
-              }"
-              rounded="lg"
-              display="block"
-              color="gray.400"
-              fontSize="18px"
-              as="router-link"
-              :to="item.path"
-              py="10px"
-              pl="20px"
-              >{{ item.name }}</c-link
-            >
-          </c-box>
-        </c-stack>
+        <menu-list />
       </c-box>
       <c-box :width="['100%', '100%', '73%', '55%']">
         <slot />
@@ -47,36 +28,12 @@
 
 <script>
 import NavBar from "@/components/Navbar.vue";
+import MenuList from "@/components/MenuList.vue";
 
 export default {
   components: {
     NavBar,
-  },
-  data() {
-    return {
-      menu: [
-        {
-          name: "My bookmarks",
-          path: "/my-bookmarks",
-        },
-        {
-          name: "Saved bookmarks",
-          path: "/saved-bookmarks",
-        },
-        {
-          name: "Browse",
-          path: "/browse",
-        },
-      ],
-    };
+    MenuList,
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.router-link-active {
-  font-weight: 600;
-  color: #fff;
-  background: #58c184;
-}
-</style>

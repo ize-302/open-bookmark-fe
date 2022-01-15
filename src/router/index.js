@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Landing from "../views/Landing.vue";
-import MyBookmarks from "../views/MyBookmarks.vue";
-import Browse from "../views/Browse.vue";
+import Landing from "@/views/Landing.vue";
+import MyBookmarks from "@/views/MyBookmarks.vue";
+import Browse from "@/views/Browse.vue";
+import Trash from "@/views/Trash.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/browse",
     name: "browse",
     component: Browse,
+  },
+  {
+    path: "/trash",
+    name: "trash",
+    component: Trash,
   },
 ];
 

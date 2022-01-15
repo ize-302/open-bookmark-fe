@@ -15,6 +15,9 @@ import customIcons from "./customIcons";
 
 Vue.use(VueClipboard);
 
+// global mixins
+import "@/mixins";
+
 // Import FontAwesome icons
 import {
   faGlobeAfrica,
@@ -24,6 +27,7 @@ import {
   faSun,
   faArrowRight,
   faArrowLeft,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.use(Chakra, {
@@ -43,6 +47,7 @@ Vue.use(Chakra, {
       faSun,
       faArrowRight,
       faArrowLeft,
+      faBars,
     },
   },
   extendTheme: customTheme,
