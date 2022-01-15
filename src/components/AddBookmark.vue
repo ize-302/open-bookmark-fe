@@ -1,7 +1,14 @@
 <template>
   <div>
-    <c-button @click="open" bg="brand.green" color="white"
-      >+ New bookmark</c-button
+    <c-pseudo-box
+      as="button"
+      @click="open"
+      bg="brand.green"
+      padding="8px 13px"
+      fontWeight="bold"
+      rounded="md"
+      color="white"
+      >+ New bookmark</c-pseudo-box
     >
     <c-modal
       :is-open="isOpen"
