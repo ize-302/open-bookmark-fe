@@ -1,0 +1,133 @@
+<template>
+  <div>
+    <c-pseudo-box
+      :bg="index % 2 && 'brand.lightGreen'"
+      padding="5px 0 5px 5px"
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      :_hover="{ bg: 'green.50' }"
+      cursor="pointer"
+    >
+      <c-tooltip
+        :label="bookmark.comment ? bookmark.comment : 'No comment'"
+        placement="bottom"
+      >
+        <c-flex alignItems="baseline">
+          <img
+            :src="
+              'https://s2.googleusercontent.com/s2/favicons?domain_url=' +
+              bookmark.url
+            "
+          />
+          <c-text ml="10px" fontWeight="500" fontSize="16px"
+            >{{ bookmark.title }}
+          </c-text>
+          <c-icon v-if="bookmark.isPrivate" size="14px" ml="6px" name="lock" />
+        </c-flex>
+      </c-tooltip>
+
+      <c-menu>
+        <c-menu-button padding="0" variant-color="transparent">
+          <c-icon name="ellipsis-v" color="#666" />
+        </c-menu-button>
+        <c-menu-list>
+          <c-menu-item>
+            <c-link :href="bookmark.url" is-external
+              >Open in new tab
+            </c-link></c-menu-item
+          >
+          <c-divider />
+          <c-menu-item
+            v-clipboard:copy="bookmark.url"
+            v-clipboard:success="onCopy"
+            >Copy URL</c-menu-item
+          >
+          <c-divider />
+          <edit-bookmark
+            v-if="currentPage === 'myBookmarks'"
+            :id="bookmark._id"
+            @fetchBookmarks="refreshBookmarks()"
+          />
+          <c-menu-item
+            v-if="currentPage === 'myBookmarks'"
+            color="red.300"
+            @click="trashBookmark()"
+            >Delete</c-menu-item
+          >
+          <c-menu-item v-if="currentPage === 'trash'" @click="restoreBookmark()"
+            >Restore</c-menu-item
+          >
+          <c-menu-item
+            v-if="currentPage === 'trash'"
+            color="red.300"
+            @click="deleteBookmark()"
+            >Delete permanently</c-menu-item
+          >
+        </c-menu-list>
+      </c-menu>
+    </c-pseudo-box>
+  </div>
+</template>
+
+<script>
+import EditBookmark from "@/components/EditBookmark.vue";
+import TrashService from "@/services/trash";
+import BookmarkService from "@/services/bookmarks";
+
+export default {
+  name: "bookmarkItem",
+  components: {
+    EditBookmark,
+  },
+  props: {
+    bookmark: {
+      type: Object,
+      required: true,
+    },
+    index: {
+      type: Number,
+    },
+  },
+
+  methods: {
+    onCopy() {
+      this.$toast({
+        title: "URL copied",
+        status: "success",
+        position: "top",
+      });
+    },
+    trashBookmark() {
+      TrashService.trashBookmark(this.bookmark.id).then((response) => {
+        this.$emit("refreshBookmarks");
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
+      });
+    },
+    restoreBookmark() {
+      TrashService.restoreBookmark(this.bookmark.id).then((response) => {
+        this.$emit("refreshBookmarks");
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
+      });
+    },
+    deleteBookmark() {
+      BookmarkService.deleteBookmark(this.bookmark.id).then((response) => {
+        this.$emit("refreshBookmarks");
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
+      });
+    },
+  },
+};
+</script>
