@@ -19,6 +19,13 @@ export default {
       })
       .then((response) => response.data);
   },
+  fetchAllPublicBookmarks({ page, per_page }) {
+    return Vue.http
+      .get(`${ENDPOINT}/browse?q=&page=${page}&per_page=${per_page}`, {
+        headers,
+      })
+      .then((response) => response.data);
+  },
   createBookmark({ title, url, comment, isPrivate }) {
     return Vue.http
       .post(

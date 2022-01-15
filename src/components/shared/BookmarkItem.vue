@@ -55,14 +55,17 @@
             @click="trashBookmark()"
             >Delete</c-menu-item
           >
-          <c-menu-item v-if="currentPage === 'trash'" @click="restoreBookmark()"
-            >Restore</c-menu-item
+          <c-menu-item v-if="currentPage === 'browse'" @click="saveBookmark()"
+            >Save bookmark</c-menu-item
           >
           <c-menu-item
             v-if="currentPage === 'trash'"
             color="red.300"
             @click="deleteBookmark()"
             >Delete permanently</c-menu-item
+          >
+          <c-menu-item v-if="currentPage === 'trash'" @click="restoreBookmark()"
+            >Restore</c-menu-item
           >
         </c-menu-list>
       </c-menu>
@@ -127,6 +130,9 @@ export default {
           position: "top",
         });
       });
+    },
+    saveBookmark() {
+      //
     },
   },
 };
