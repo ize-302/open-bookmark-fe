@@ -67,6 +67,10 @@ export default {
           name: "Browse",
           path: "/browse",
         },
+        {
+          name: "Trash",
+          path: "/trash",
+        },
       ],
     };
   },
