@@ -15,6 +15,9 @@ import customIcons from "./customIcons";
 
 Vue.use(VueClipboard);
 
+// global mixins
+import "@/mixins";
+
 // Import FontAwesome icons
 import {
   faGlobeAfrica,
