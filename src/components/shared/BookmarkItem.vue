@@ -44,6 +44,10 @@
             >Copy URL</c-menu-item
           >
           <c-divider />
+          <c-menu-item @click="updatePrivacy()"
+            >Make {{ bookmark.isPrivate ? "public" : "private" }}</c-menu-item
+          >
+          <c-divider />
           <edit-bookmark
             v-if="currentPage === 'myBookmarks'"
             :id="bookmark._id"
@@ -123,6 +127,19 @@ export default {
     },
     deleteBookmark() {
       BookmarkService.deleteBookmark(this.bookmark.id).then((response) => {
+        this.$emit("refreshBookmarks");
+        this.$toast({
+          title: response.message,
+          status: "success",
+          position: "top",
+        });
+      });
+    },
+    updatePrivacy() {
+      BookmarkService.updateBookmark({
+        id: this.bookmark.id,
+        isPrivate: !this.bookmark.isPrivate,
+      }).then((response) => {
         this.$emit("refreshBookmarks");
         this.$toast({
           title: response.message,
