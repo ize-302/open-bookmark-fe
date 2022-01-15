@@ -44,10 +44,11 @@
             >Copy URL</c-menu-item
           >
           <c-divider />
-          <c-menu-item @click="updatePrivacy()"
+          <c-menu-item
+            v-if="currentPage === 'myBookmarks'"
+            @click="updatePrivacy()"
             >Make {{ bookmark.isPrivate ? "public" : "private" }}</c-menu-item
           >
-          <c-divider />
           <edit-bookmark
             v-if="currentPage === 'myBookmarks'"
             :id="bookmark._id"
