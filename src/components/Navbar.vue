@@ -23,24 +23,17 @@
       </c-flex>
       <c-menu>
         <c-menu-button p="10px 5px" variant="solid" bg="brand.lightGreen">
-          <c-avatar
-            :name="user.user_metadata.full_name"
-            :src="user.user_metadata.avatar_url"
-            size="sm"
-          />
+          <c-avatar :name="user.full_name" :src="user.avatar_url" size="sm" />
           <c-text
             :display="['none', 'block']"
             mx="7px"
             fontWeight="400"
             fontSize="16px"
-            >{{ user.user_metadata.full_name }}</c-text
+            >{{ user.full_name }}</c-text
           >
         </c-menu-button>
         <c-menu-list>
-          <c-menu-group
-            :display="['block', 'none']"
-            :title="user.user_metadata.full_name"
-          />
+          <c-menu-group :display="['block', 'none']" :title="user.full_name" />
           <c-menu-item>My Profile</c-menu-item>
           <c-menu-item @click="signout()" color="red.300">Log out</c-menu-item>
         </c-menu-list>
@@ -54,11 +47,13 @@ import { supabase } from "../lib/supabase";
 import { removeTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
 import SidebarMobile from "@/components/SidebarMobile.vue";
+import UserService from "@/services/users";
 
 export default {
   data() {
     return {
       session: supabase.auth.session(),
+      user: {},
     };
   },
   components: {
@@ -67,13 +62,11 @@ export default {
   mounted() {
     if (!verifyToken(this.session?.access_token)) {
       this.$router.push("/");
+    } else {
+      UserService.user().then((data) => {
+        this.user = data;
+      });
     }
-  },
-  computed: {
-    user() {
-      console.log(this.session?.access_token);
-      return verifyToken(this.session?.access_token);
-    },
   },
   methods: {
     signout() {
