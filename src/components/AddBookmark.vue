@@ -55,6 +55,20 @@
             </c-form-control>
 
             <c-form-control>
+              <c-form-label for="comment">Category</c-form-label>
+              <c-select
+                v-model="category"
+                id="category"
+                placeholder="Select Category"
+                mb="20px"
+              >
+                <option value="grilled">Grilled Backyard Burger</option>
+                <option value="pub-style">The Pub-Style Burger</option>
+                <option value="jucy-lucy">The Jucy Lucy</option>
+              </c-select>
+            </c-form-control>
+
+            <c-form-control>
               <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
                 v-model="comment"
@@ -102,6 +116,7 @@ export default {
       url: "",
       comment: "",
       is_private: false,
+      category: "",
       loadingTitle: false,
     };
   },
