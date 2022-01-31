@@ -56,7 +56,7 @@
                 <c-icon ml="6px" mt="3px" name="lock" />
               </c-flex>
               <c-form-control>
-                <c-switch v-model="isPrivate" id="private" />
+                <c-switch v-model="is_private" id="private" />
               </c-form-control>
             </c-flex>
             <c-button type="submit" variant-color="green" width="100%"
@@ -81,7 +81,7 @@ export default {
       title: "",
       url: "",
       comment: "",
-      isPrivate: false,
+      is_private: false,
     };
   },
   watch: {
@@ -91,7 +91,7 @@ export default {
           this.title = response.title;
           this.url = response.url;
           this.comment = response.comment;
-          this.isPrivate = response.isPrivate;
+          this.is_private = response.is_private;
         });
       }
     },
@@ -106,7 +106,7 @@ export default {
         title: this.title,
         url: this.url,
         comment: this.comment,
-        isPrivate: this.isPrivate,
+        is_private: this.is_private,
       }).then((response) => {
         this.$toast({
           title: response.message,

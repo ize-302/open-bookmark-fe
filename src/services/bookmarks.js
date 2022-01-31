@@ -26,14 +26,14 @@ export default {
       })
       .then((response) => response.data);
   },
-  createBookmark({ title, url, comment, isPrivate }) {
+  createBookmark({ title, url, comment, is_private }) {
     return Vue.http
       .post(
         `${ENDPOINT}/create`,
         {
           title,
           url,
-          isPrivate,
+          is_private,
           comment,
         },
         {
@@ -50,14 +50,14 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, comment, isPrivate }) {
+  updateBookmark({ id, title, url, comment, is_private }) {
     return Vue.http
       .patch(
         `${ENDPOINT}/${id}/update`,
         {
           title,
           url,
-          isPrivate,
+          is_private,
           comment,
         },
         {
