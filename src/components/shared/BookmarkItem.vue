@@ -23,7 +23,7 @@
           <c-text ml="10px" fontWeight="500" fontSize="16px"
             >{{ bookmark.title }}
           </c-text>
-          <c-icon v-if="bookmark.isPrivate" size="14px" ml="6px" name="lock" />
+          <c-icon v-if="bookmark.is_private" size="14px" ml="6px" name="lock" />
         </c-flex>
       </c-tooltip>
 
@@ -47,7 +47,7 @@
           <c-menu-item
             v-if="currentPage === 'myBookmarks'"
             @click="updatePrivacy()"
-            >Make {{ bookmark.isPrivate ? "public" : "private" }}</c-menu-item
+            >Make {{ bookmark.is_private ? "public" : "private" }}</c-menu-item
           >
           <edit-bookmark
             v-if="currentPage === 'myBookmarks'"
@@ -136,7 +136,7 @@ export default {
     updatePrivacy() {
       BookmarkService.updateBookmark({
         id: this.bookmark.id,
-        isPrivate: !this.bookmark.isPrivate,
+        is_private: !this.bookmark.is_private,
       }).then((response) => {
         this.$emit("refreshBookmarks");
         this.$toast({
