@@ -51,7 +51,7 @@
           >
           <edit-bookmark
             v-if="currentPage === 'myBookmarks'"
-            :id="bookmark._id"
+            :bookmark="bookmark"
             @fetchBookmarks="$emit('refreshBookmarks')"
           />
           <c-menu-item
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import EditBookmark from "@/components/EditBookmark.vue";
+import EditBookmark from "@/components/Bookmark/EditBookmark.vue";
 import TrashService from "@/services/trash";
 import BookmarkService from "@/services/bookmarks";
 

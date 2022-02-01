@@ -36,6 +36,23 @@
             </c-form-control>
 
             <c-form-control>
+              <c-form-label for="comment">Category</c-form-label>
+              <c-select
+                v-model="selectedCategory"
+                placeholder="Select Category"
+                mb="20px"
+              >
+                <option
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  :value="category._id"
+                >
+                  {{ category.name }}
+                </option>
+              </c-select>
+            </c-form-control>
+
+            <c-form-control>
               <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
                 :value="comment"
@@ -71,10 +88,11 @@
 
 <script>
 import BookmarkService from "@/services/bookmarks";
+import CategoryService from "@/services/category";
 
 export default {
   name: "editBookmark",
-  props: ["id"],
+  props: ["bookmark"],
   data() {
     return {
       isOpen: false,
@@ -82,17 +100,24 @@ export default {
       url: "",
       comment: "",
       is_private: false,
+      categories: [],
+      selectedCategory: "",
     };
+  },
+  mounted() {
+    this.fetchCategories();
   },
   watch: {
     isOpen() {
       if (this.isOpen) {
-        BookmarkService.getBookmarkById(this.id).then((response) => {
-          this.title = response.title;
-          this.url = response.url;
-          this.comment = response.comment;
-          this.is_private = response.is_private;
-        });
+        this.title = this.bookmark.title;
+        this.url = this.bookmark.url;
+        this.comment = this.bookmark.comment;
+        this.is_private = this.bookmark.is_private;
+        const findCategory = this.categories.find(
+          (category) => category._id === this.bookmark.category
+        );
+        this.selectedCategory = findCategory._id;
       }
     },
   },
@@ -100,13 +125,19 @@ export default {
     close() {
       this.isOpen = false;
     },
+    fetchCategories() {
+      CategoryService.fetchUserCategories().then((data) => {
+        this.categories = data;
+      });
+    },
     updateBookmark() {
       BookmarkService.updateBookmark({
-        id: this.id,
+        id: this.bookmark._id,
         title: this.title,
         url: this.url,
         comment: this.comment,
         is_private: this.is_private,
+        category: this.selectedCategory,
       }).then((response) => {
         this.$toast({
           title: response.message,
