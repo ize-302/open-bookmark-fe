@@ -150,8 +150,13 @@ export default {
           this.title = data.title;
           this.loadingTitle = false;
         })
-        .catch(() => {
+        .catch((err) => {
           this.loadingTitle = false;
+          this.$toast({
+            title: err.response.data.message,
+            status: "error",
+            position: "top",
+          });
         });
     },
     addBookmark() {
