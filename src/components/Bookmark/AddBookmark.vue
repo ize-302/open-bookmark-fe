@@ -55,6 +55,23 @@
             </c-form-control>
 
             <c-form-control>
+              <c-form-label for="comment">Category</c-form-label>
+              <c-select
+                v-model="category"
+                placeholder="Select Category"
+                mb="20px"
+              >
+                <option
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  :value="category._id"
+                >
+                  {{ category.name }}
+                </option>
+              </c-select>
+            </c-form-control>
+
+            <c-form-control>
               <c-form-label for="comment">Comment</c-form-label>
               <c-textarea
                 v-model="comment"
@@ -90,6 +107,7 @@
 
 <script>
 import BookmarkService from "@/services/bookmarks";
+import CategoryService from "@/services/category";
 import OtherService from "@/services/others";
 
 export default {
@@ -102,15 +120,28 @@ export default {
       url: "",
       comment: "",
       is_private: false,
+      category: "",
       loadingTitle: false,
+      categories: [],
     };
   },
   methods: {
     open() {
       this.isOpen = true;
+      this.fetchCategories();
     },
     close() {
       this.isOpen = false;
+      this.url = "";
+      this.comment = "";
+      this.title = "";
+      this.category = "";
+      this.is_private = false;
+    },
+    fetchCategories() {
+      CategoryService.fetchUserCategories().then((data) => {
+        this.categories = data;
+      });
     },
     fetchUrlTitle() {
       this.loadingTitle = true;
@@ -129,6 +160,7 @@ export default {
         url: this.url,
         comment: this.comment,
         is_private: this.is_private,
+        category: this.category,
       }).then((response) => {
         this.close();
         this.$toast({

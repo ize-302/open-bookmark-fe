@@ -36,6 +36,10 @@ export default {
           path: "/browse",
         },
         {
+          name: "Categories",
+          path: "/categories",
+        },
+        {
           name: "Trash",
           path: "/trash",
         },

@@ -6,33 +6,22 @@ const headers = {
   Authorization: `Bearer ${session?.access_token}`,
 };
 
-const ENDPOINT = `/bookmarks`;
+const ENDPOINT = `/category`;
 
 export default {
-  fetchUserBookmarks({ page, per_page }) {
+  fetchUserCategories() {
     return Vue.http
-      .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, {
+      .get(`/categories`, {
         headers,
       })
       .then((response) => response.data);
   },
-  fetchAllPublicBookmarks({ page, per_page }) {
-    return Vue.http
-      .get(`${ENDPOINT}/browse?q=&page=${page}&per_page=${per_page}`, {
-        headers,
-      })
-      .then((response) => response.data);
-  },
-  createBookmark({ title, url, comment, is_private, category }) {
+  createCategory({ name }) {
     return Vue.http
       .post(
         `${ENDPOINT}/create`,
         {
-          title,
-          url,
-          is_private,
-          comment,
-          category,
+          name,
         },
         {
           headers,
@@ -40,7 +29,7 @@ export default {
       )
       .then((response) => response.data);
   },
-  deleteBookmark(id) {
+  deleteCategory(id) {
     return Vue.http
       .delete(`${ENDPOINT}/${id}/delete`, {
         headers,
@@ -48,16 +37,12 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, comment, is_private, category }) {
+  updateCategory({ id, name }) {
     return Vue.http
       .patch(
         `${ENDPOINT}/${id}/update`,
         {
-          title,
-          url,
-          is_private,
-          comment,
-          category,
+          name,
         },
         {
           headers,

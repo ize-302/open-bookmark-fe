@@ -4,6 +4,7 @@ import Landing from "@/views/Landing.vue";
 import MyBookmarks from "@/views/MyBookmarks.vue";
 import Browse from "@/views/Browse.vue";
 import Trash from "@/views/Trash.vue";
+import Categories from "@/views/Categories.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/trash",
     name: "trash",
     component: Trash,
+  },
+  {
+    path: "/categories",
+    name: "categories",
+    component: Categories,
   },
 ];
 

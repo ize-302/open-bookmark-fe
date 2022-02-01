@@ -11,7 +11,7 @@
       <c-box v-else mt="20px">
         <bookmark-item
           v-for="(bookmark, index) in bookmarks"
-          :key="bookmark.title"
+          :key="bookmark.index"
           :index="index"
           :bookmark="bookmark"
           @refreshBookmarks="refreshBookmarks"
@@ -29,11 +29,12 @@
 
 <script>
 import DashboardLayout from "./layouts/Dashboard.layout.vue";
-import AddBookmark from "@/components/AddBookmark.vue";
+import AddBookmark from "@/components/Bookmark/AddBookmark.vue";
 import Pagination from "@/components/Pagination.vue";
-import BookmarkItem from "../components/shared/BookmarkItem.vue";
+import BookmarkItem from "@/components/shared/Bookmark/BookmarkItem.vue";
 import bookmarkMixin from "@/mixins/bookmark";
 import BookmarkService from "@/services/bookmarks";
+import { getTokenFromCookies } from "@/utils/cookies";
 
 export default {
   name: "myBookmarks",
@@ -47,6 +48,7 @@ export default {
   },
   methods: {
     fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
+      console.log(getTokenFromCookies());
       BookmarkService.fetchUserBookmarks({ page, per_page }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;

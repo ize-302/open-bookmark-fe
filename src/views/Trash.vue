@@ -31,7 +31,7 @@
 import DashboardLayout from "@/views/layouts/Dashboard.layout.vue";
 import TrashService from "@/services/trash";
 import Pagination from "@/components/Pagination.vue";
-import BookmarkItem from "../components/shared/BookmarkItem.vue";
+import BookmarkItem from "@/components/shared/Bookmark/BookmarkItem.vue";
 import bookmarkMixin from "@/mixins/bookmark";
 
 export default {
