@@ -1,18 +1,15 @@
 <template>
   <div>
     <c-pseudo-box
-      :bg="index % 2 && 'brand.lightGreen'"
-      padding="5px 0 5px 5px"
+      borderBottom="1px solid #eee"
+      padding="5px 0 5px 0px"
       display="flex"
       justifyContent="space-between"
-      alignItems="center"
-      :_hover="{ bg: 'green.50' }"
-      cursor="pointer"
+      alignItems="start"
+      marginBottom="10px"
+      paddingBottom="10px"
     >
-      <c-tooltip
-        :label="bookmark.comment ? bookmark.comment : 'No comment'"
-        placement="bottom"
-      >
+      <c-stack :spacing="0">
         <c-flex alignItems="baseline">
           <img
             :src="
@@ -25,8 +22,14 @@
           </c-text>
           <c-icon v-if="bookmark.is_private" size="14px" ml="6px" name="lock" />
         </c-flex>
-      </c-tooltip>
-
+        <c-text mt="5px" color="gray.500" fontWeight="200" fontSize="14px">{{
+          bookmark.description || "No description"
+        }}</c-text>
+        <c-text mt="10px" color="gray.400" fontWeight="200" fontSize="12px"
+          >Updated on
+          {{ bookmark.updated_at | formatDate("DD MMM YYYY") }}</c-text
+        >
+      </c-stack>
       <c-menu>
         <c-menu-button padding="0" variant-color="transparent">
           <c-icon name="ellipsis-v" color="#666" />

@@ -55,7 +55,7 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="comment">Category</c-form-label>
+              <c-form-label for="category">Category</c-form-label>
               <c-select
                 v-model="category"
                 placeholder="Select Category"
@@ -72,10 +72,10 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="comment">Comment</c-form-label>
+              <c-form-label for="description">Description</c-form-label>
               <c-textarea
-                v-model="comment"
-                id="comment"
+                v-model="description"
+                id="description"
                 placeholder="Here is a sample placeholder"
                 mb="20px"
               />
@@ -122,7 +122,7 @@ export default {
       blockScrollOnMount: false,
       title: "",
       url: "",
-      comment: "",
+      description: "",
       is_private: false,
       category: "",
       loadingTitle: false,
@@ -137,7 +137,7 @@ export default {
     close() {
       this.isOpen = false;
       this.url = "";
-      this.comment = "";
+      this.description = "";
       this.title = "";
       this.category = "";
       this.is_private = false;
@@ -167,7 +167,7 @@ export default {
       BookmarkService.createBookmark({
         title: this.title,
         url: this.url,
-        comment: this.comment,
+        description: this.description,
         is_private: this.is_private,
         category: this.category,
       }).then((response) => {
@@ -179,7 +179,7 @@ export default {
         });
         this.title = "";
         this.url = "";
-        this.comment = "";
+        this.description = "";
         this.is_private = false;
         this.$emit("fetchBookmarks");
       });

@@ -23,7 +23,7 @@ export default {
       })
       .then((response) => response.data);
   },
-  createBookmark({ title, url, comment, is_private, category }) {
+  createBookmark({ title, url, description, is_private, category }) {
     return Vue.http
       .post(
         `${ENDPOINT}/create`,
@@ -31,7 +31,7 @@ export default {
           title,
           url,
           is_private,
-          comment,
+          description,
           category,
         },
         {
@@ -48,7 +48,7 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, comment, is_private, category }) {
+  updateBookmark({ id, title, url, description, is_private, category }) {
     return Vue.http
       .patch(
         `${ENDPOINT}/${id}/update`,
@@ -56,7 +56,7 @@ export default {
           title,
           url,
           is_private,
-          comment,
+          description,
           category,
         },
         {
