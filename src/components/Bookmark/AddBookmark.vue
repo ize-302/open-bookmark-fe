@@ -94,7 +94,11 @@
                 <c-switch v-model="is_private" id="private" />
               </c-form-control>
             </c-flex>
-            <c-button type="submit" variant-color="green" width="100%"
+            <c-button
+              :disabled="!url || !title"
+              type="submit"
+              variant-color="green"
+              width="100%"
               >Add</c-button
             >
           </form>
