@@ -9,13 +9,6 @@ const headers = {
 const ENDPOINT = `/bookmarks`;
 
 export default {
-  fetchUserBookmarks({ page, per_page }) {
-    return Vue.http
-      .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, {
-        headers,
-      })
-      .then((response) => response.data);
-  },
   fetchAllPublicBookmarks({ page, per_page }) {
     return Vue.http
       .get(`${ENDPOINT}/browse?q=&page=${page}&per_page=${per_page}`, {
@@ -23,7 +16,7 @@ export default {
       })
       .then((response) => response.data);
   },
-  createBookmark({ title, url, comment, is_private, category }) {
+  createBookmark({ title, url, description, is_private, category }) {
     return Vue.http
       .post(
         `${ENDPOINT}/create`,
@@ -31,7 +24,7 @@ export default {
           title,
           url,
           is_private,
-          comment,
+          description,
           category,
         },
         {
@@ -48,7 +41,7 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, comment, is_private, category }) {
+  updateBookmark({ id, title, url, description, is_private, category }) {
     return Vue.http
       .patch(
         `${ENDPOINT}/${id}/update`,
@@ -56,7 +49,7 @@ export default {
           title,
           url,
           is_private,
-          comment,
+          description,
           category,
         },
         {

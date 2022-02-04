@@ -16,6 +16,7 @@ import customIcons from "./customIcons";
 Vue.use(VueClipboard);
 
 // global mixins
+import "@/filters";
 import "@/mixins";
 
 // Import FontAwesome icons

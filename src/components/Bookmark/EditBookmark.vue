@@ -36,7 +36,7 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="comment">Category</c-form-label>
+              <c-form-label for="Category">Category</c-form-label>
               <c-select
                 v-model="selectedCategory"
                 placeholder="Select Category"
@@ -53,11 +53,11 @@
             </c-form-control>
 
             <c-form-control>
-              <c-form-label for="comment">Comment</c-form-label>
+              <c-form-label for="description">Description</c-form-label>
               <c-textarea
-                :value="comment"
-                v-model="comment"
-                id="comment"
+                :value="description"
+                v-model="description"
+                id="description"
                 placeholder="Here is a sample placeholder"
                 mb="20px"
               />
@@ -98,7 +98,7 @@ export default {
       isOpen: false,
       title: "",
       url: "",
-      comment: "",
+      description: "",
       is_private: false,
       categories: [],
       selectedCategory: "",
@@ -112,7 +112,7 @@ export default {
       if (this.isOpen) {
         this.title = this.bookmark.title;
         this.url = this.bookmark.url;
-        this.comment = this.bookmark.comment;
+        this.description = this.bookmark.description;
         this.is_private = this.bookmark.is_private;
         const findCategory = this.categories.find(
           (category) => category._id === this.bookmark.category
@@ -135,7 +135,7 @@ export default {
         id: this.bookmark._id,
         title: this.title,
         url: this.url,
-        comment: this.comment,
+        description: this.description,
         is_private: this.is_private,
         category: this.selectedCategory,
       }).then((response) => {

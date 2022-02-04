@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DashboardLayout from "./layouts/Dashboard.layout.vue";
+import DashboardLayout from "@/views/layouts/Dashboard.layout.vue";
 import CategoryService from "@/services/category";
 import categoryMixin from "@/mixins/category";
 import CategoryItem from "@/components/Category/CategoryItem.vue";

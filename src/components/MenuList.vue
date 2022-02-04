@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .router-link-active {
   font-weight: 600;
   color: #fff !important;

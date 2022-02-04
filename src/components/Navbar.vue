@@ -17,13 +17,20 @@
     >
       <c-flex>
         <sidebar-mobile />
-        <c-heading marginLeft="10px" fontSize="20px" color="brand.green"
-          >OpenBookmark</c-heading
-        >
+        <c-link as="router-link" :to="{ name: 'myBookmarks' }">
+          <c-heading marginLeft="10px" fontSize="20px" color="brand.green"
+            >OpenBookmark</c-heading
+          >
+        </c-link>
       </c-flex>
       <c-menu>
         <c-menu-button p="10px 5px" variant="solid" bg="brand.lightGreen">
-          <c-avatar :name="user.full_name" :src="user.avatar_url" size="sm" />
+          <c-avatar
+            bg="brand.green"
+            :name="user.full_name"
+            :src="user.avatar_url"
+            size="sm"
+          />
           <c-text
             :display="['none', 'block']"
             mx="7px"
@@ -34,7 +41,10 @@
         </c-menu-button>
         <c-menu-list>
           <c-menu-group :display="['block', 'none']" :title="user.full_name" />
-          <c-menu-item>My Profile</c-menu-item>
+          <c-menu-item
+            @click="$router.push({ name: 'profile', params: { id: user.sub } })"
+            >My Profile</c-menu-item
+          >
           <c-menu-item @click="signout()" color="red.300">Log out</c-menu-item>
         </c-menu-list>
       </c-menu>
@@ -43,7 +53,7 @@
 </template>
 
 <script>
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { removeTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
 import SidebarMobile from "@/components/SidebarMobile.vue";
@@ -59,11 +69,13 @@ export default {
   components: {
     SidebarMobile,
   },
-  mounted() {
+  created() {
     if (!verifyToken(this.session?.access_token)) {
       this.$router.push("/");
     } else {
-      UserService.user().then((data) => {
+      const user = verifyToken(this.session?.access_token);
+      console.log(user.sub);
+      UserService.getUser(user.sub).then((data) => {
         this.user = data;
       });
     }

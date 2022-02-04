@@ -38,7 +38,11 @@
               </c-input-group>
             </c-form-control>
 
-            <c-button type="submit" variant-color="green" width="100%"
+            <c-button
+              :disabled="!name"
+              type="submit"
+              variant-color="green"
+              width="100%"
               >Add</c-button
             >
           </form>

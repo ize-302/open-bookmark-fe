@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import DashboardLayout from "./layouts/Dashboard.layout.vue";
+import DashboardLayout from "../layouts/Dashboard.layout.vue";
 import Pagination from "@/components/Pagination.vue";
 import BookmarkItem from "@/components/shared/Bookmark/BookmarkItem.vue";
 import bookmarkMixin from "@/mixins/bookmark";

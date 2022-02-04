@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Landing from "@/views/Landing.vue";
-import MyBookmarks from "@/views/MyBookmarks.vue";
-import Browse from "@/views/Browse.vue";
-import Trash from "@/views/Trash.vue";
-import Categories from "@/views/Categories.vue";
+import MyBookmarksPage from "@/views/Dashboard/MyBookmarksPage.vue";
+import Browse from "@/views/Dashboard/Browse.vue";
+import Trash from "@/views/Dashboard/Trash.vue";
+import Categories from "@/views/Dashboard/Categories.vue";
+import UserProfile from "@/views/UserProfile/Base.vue";
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,7 @@ const routes = [
   {
     path: "/my-bookmarks",
     name: "myBookmarks",
-    component: MyBookmarks,
+    component: MyBookmarksPage,
   },
   {
     path: "/browse",
@@ -33,6 +34,11 @@ const routes = [
     path: "/categories",
     name: "categories",
     component: Categories,
+  },
+  {
+    path: "/u/:id",
+    name: "profile",
+    component: UserProfile,
   },
 ];
 
