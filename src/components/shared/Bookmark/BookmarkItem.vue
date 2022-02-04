@@ -25,10 +25,38 @@
         <c-text mt="5px" color="gray.500" fontWeight="200" fontSize="14px">{{
           bookmark.description || "No description"
         }}</c-text>
-        <c-text mt="10px" color="gray.400" fontWeight="200" fontSize="12px"
-          >Updated on
-          {{ bookmark.updated_at | formatDate("DD MMM YYYY") }}</c-text
-        >
+        <c-flex alignItems="baseline">
+          <c-text
+            mr="20px"
+            mt="10px"
+            color="gray.400"
+            fontWeight="200"
+            fontSize="12px"
+            >Updated on
+            {{ bookmark.updated_at | formatDate("DD MMM YYYY") }}</c-text
+          >
+
+          <c-text
+            v-if="currentPage === 'browse'"
+            mt="10px"
+            color="gray.400"
+            fontWeight="200"
+            fontSize="12px"
+            >By
+            <c-tooltip
+              fontSize="12px"
+              :label="bookmark.author.sub ? 'Go to profile' : 'User not found'"
+              placement="bottom"
+            >
+              <c-link
+                color="brand.green"
+                as="router-link"
+                :to="`user/${bookmark.author.sub}`"
+                >{{ bookmark.author.full_name || "Unknown user" }}</c-link
+              >
+            </c-tooltip>
+          </c-text>
+        </c-flex>
       </c-stack>
       <c-menu>
         <c-menu-button padding="0" variant-color="transparent">

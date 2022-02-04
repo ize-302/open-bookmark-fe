@@ -23,7 +23,12 @@
       </c-flex>
       <c-menu>
         <c-menu-button p="10px 5px" variant="solid" bg="brand.lightGreen">
-          <c-avatar :name="user.full_name" :src="user.avatar_url" size="sm" />
+          <c-avatar
+            bg="brand.green"
+            :name="user.full_name"
+            :src="user.avatar_url"
+            size="sm"
+          />
           <c-text
             :display="['none', 'block']"
             mx="7px"

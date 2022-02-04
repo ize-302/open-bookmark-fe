@@ -10,7 +10,7 @@ export default {
   user() {
     return Vue.http
       .post(
-        `/user`,
+        `/user/add`,
         {},
         {
           headers,
