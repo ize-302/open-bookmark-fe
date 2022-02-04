@@ -30,10 +30,31 @@
           />
           <c-box mt="20px">
             <c-text fontSize="26px">{{ user.full_name }}</c-text>
-            <c-text
+            <c-text color="gray.400"
               >Hi there, I'm a Software Developer excited about developing
               intuitive User Interfaces with awesome User Experiences</c-text
             >
+            <c-pseudo-box
+              v-if="!isOwnProfile"
+              mt="10px"
+              as="button"
+              @click="handleFollow()"
+              :bg="isFollowing ? 'red.300' : 'brand.green'"
+              padding="5px 20px"
+              fontWeight="bold"
+              rounded="md"
+              color="white"
+              >{{ isFollowing ? "Unfollow" : "Follow" }}</c-pseudo-box
+            >
+            <c-stack mt="10px" fontSize="14px" direction="row" :spacing="6">
+              <c-link
+                ><b>{{ user.followers && user.followers.length }}</b> followers
+              </c-link>
+              <c-link
+                ><b>{{ user.following && user.following.length }}</b>
+                following</c-link
+              >
+            </c-stack>
           </c-box>
         </c-flex>
         <c-box mt="20px" pt="20px" borderTop="1px solid #eee">
@@ -63,10 +84,40 @@ export default {
     MyBookmarks,
     UserPublicBookmarks,
   },
+  watch: {
+    $route() {
+      this.getUser();
+    },
+  },
+  computed: {
+    isFollowing() {
+      return (
+        this.user.followers && this.user.followers.includes(this.loggedUser.sub)
+      );
+    },
+  },
+  methods: {
+    handleFollow() {
+      if (this.isFollowing) {
+        // unfollow
+        UserService.unfollowUser(this.$route.params.id).then(() => {
+          this.getUser();
+        });
+      } else {
+        // follow
+        UserService.followUser(this.$route.params.id).then(() => {
+          this.getUser();
+        });
+      }
+    },
+    getUser() {
+      UserService.getUser(this.$route.params.id).then((data) => {
+        this.user = data;
+      });
+    },
+  },
   created() {
-    UserService.getUser(this.$route.params.id).then((data) => {
-      this.user = data;
-    });
+    this.getUser();
   },
 };
 </script>

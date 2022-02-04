@@ -39,4 +39,26 @@ export default {
       })
       .then((response) => response.data);
   },
+  followUser(id) {
+    return Vue.http
+      .post(
+        `/users/${id}/follow`,
+        {},
+        {
+          headers,
+        }
+      )
+      .then((response) => response.data);
+  },
+  unfollowUser(id) {
+    return Vue.http
+      .post(
+        `/users/${id}/unfollow`,
+        {},
+        {
+          headers,
+        }
+      )
+      .then((response) => response.data);
+  },
 };
