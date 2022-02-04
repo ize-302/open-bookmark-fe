@@ -51,7 +51,7 @@
               <c-link
                 color="brand.green"
                 as="router-link"
-                :to="`user/${bookmark.author.sub}`"
+                :to="`u/${bookmark.author.sub}`"
                 >{{ bookmark.author.full_name || "Unknown user" }}</c-link
               >
             </c-tooltip>
@@ -73,20 +73,24 @@
             >Copy URL</c-menu-item
           >
           <c-divider
-            v-if="currentPage === 'myBookmarks' || currentPage === 'trash'"
+            v-if="
+              currentPage === 'myBookmarks' ||
+              currentPage === 'trash' ||
+              isOwnProfile
+            "
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks'"
+            v-if="currentPage === 'myBookmarks' || isOwnProfile"
             @click="updatePrivacy()"
             >Make {{ bookmark.is_private ? "public" : "private" }}</c-menu-item
           >
           <edit-bookmark
-            v-if="currentPage === 'myBookmarks'"
+            v-if="currentPage === 'myBookmarks' || isOwnProfile"
             :bookmark="bookmark"
             @fetchBookmarks="$emit('refreshBookmarks')"
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks'"
+            v-if="currentPage === 'myBookmarks' || isOwnProfile"
             color="red.300"
             @click="trashBookmark()"
             >Delete</c-menu-item

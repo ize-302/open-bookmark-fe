@@ -9,13 +9,6 @@ const headers = {
 const ENDPOINT = `/bookmarks`;
 
 export default {
-  fetchUserBookmarks({ page, per_page }) {
-    return Vue.http
-      .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, {
-        headers,
-      })
-      .then((response) => response.data);
-  },
   fetchAllPublicBookmarks({ page, per_page }) {
     return Vue.http
       .get(`${ENDPOINT}/browse?q=&page=${page}&per_page=${per_page}`, {
