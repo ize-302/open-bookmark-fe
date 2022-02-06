@@ -69,19 +69,16 @@ export default {
   },
   created() {
     const access_token = getTokenFromCookies();
-    if (!verifyToken(access_token)) {
-      this.$router.push("/");
-    } else {
-      const data = verifyToken(access_token);
-      UserService.getUser(data.sub).then((data) => {
-        this.user = data;
-      });
-    }
+    const data = verifyToken(access_token);
+    UserService.getUser(data && data.sub).then((data) => {
+      this.user = data;
+    });
   },
   methods: {
     signout() {
       removeTokenFromCookies();
-      this.$router.push("/");
+      localStorage.removeItem("refresh_token");
+      window.location.href = "/";
     },
   },
 };
