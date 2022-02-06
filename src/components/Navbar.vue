@@ -53,8 +53,7 @@
 </template>
 
 <script>
-import { supabase } from "@/lib/supabase";
-import { removeTokenFromCookies } from "@/utils/cookies";
+import { removeTokenFromCookies, getTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
 import SidebarMobile from "@/components/SidebarMobile.vue";
 import UserService from "@/services/users";
@@ -62,7 +61,6 @@ import UserService from "@/services/users";
 export default {
   data() {
     return {
-      session: supabase.auth.session(),
       user: {},
     };
   },
@@ -70,19 +68,18 @@ export default {
     SidebarMobile,
   },
   created() {
-    if (!verifyToken(this.session?.access_token)) {
+    const access_token = getTokenFromCookies();
+    if (!verifyToken(access_token)) {
       this.$router.push("/");
     } else {
-      const user = verifyToken(this.session?.access_token);
-      console.log(user.sub);
-      UserService.getUser(user.sub).then((data) => {
+      const data = verifyToken(access_token);
+      UserService.getUser(data.sub).then((data) => {
         this.user = data;
       });
     }
   },
   methods: {
     signout() {
-      supabase.auth.signOut();
       removeTokenFromCookies();
       this.$router.push("/");
     },

@@ -1,13 +1,9 @@
 import Vue from "vue";
-import { supabase } from "@/lib/supabase";
 import { verifyToken } from "@/utils/jwt";
+import { getTokenFromCookies } from "@/utils/cookies";
+const access_token = getTokenFromCookies();
 
 Vue.mixin({
-  data() {
-    return {
-      session: supabase.auth.session(),
-    };
-  },
   methods: {
     isEmpty(val) {
       if (val !== null && typeof val === "object") {
@@ -23,11 +19,11 @@ Vue.mixin({
       return this.$route.name;
     },
     isOwnProfile() {
-      const user = verifyToken(this.session?.access_token);
+      const user = verifyToken(access_token);
       return user.sub === this.$route.params.id;
     },
     loggedUser() {
-      return verifyToken(this.session?.access_token);
+      return verifyToken(access_token);
     },
   },
 });
