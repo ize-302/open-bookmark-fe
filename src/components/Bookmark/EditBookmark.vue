@@ -104,12 +104,10 @@ export default {
       selectedCategory: "",
     };
   },
-  mounted() {
-    this.fetchCategories();
-  },
   watch: {
     isOpen() {
       if (this.isOpen) {
+        this.fetchCategories();
         this.title = this.bookmark.title;
         this.url = this.bookmark.url;
         this.description = this.bookmark.description;
