@@ -1,20 +1,40 @@
 <template>
-  <c-button @click="signInWithGoogle()" size="lg"
-    ><c-icon name="google" mr="5px" /> Sign in with Google</c-button
-  >
+  <div>
+    <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
+      <c-button size="lg"
+        ><c-icon name="google" mr="5px" /> Sign in with Google</c-button
+      >
+    </GoogleLogin>
+  </div>
 </template>
 
 <script>
-import { supabase } from "../lib/supabase";
+import GoogleLogin from "vue-google-login";
+import AuthService from "@/services/auth";
+import { saveTokenInCookies, getTokenFromCookies } from "@/utils/cookies";
+
 export default {
+  data() {
+    return {
+      params: {
+        client_id: `${process.env.VUE_APP_PUBLIC_GOOGLE_CLIENT_ID}`,
+      },
+    };
+  },
+  components: {
+    GoogleLogin,
+  },
   methods: {
-    async signInWithGoogle() {
-      const session = supabase.auth.session();
-      if (session) {
-        this.$router.push({ name: "myBookmarks" });
-      } else {
-        await supabase.auth.signIn({ provider: "google" });
-      }
+    onSuccess(googleUser) {
+      AuthService.verify(googleUser.wc.id_token).then((data) => {
+        saveTokenInCookies(data.access_token);
+        if (getTokenFromCookies()) {
+          this.$router.push({ name: "myBookmarks" });
+        }
+      });
+    },
+    onFailure(googleUser) {
+      console.log("error", googleUser);
     },
   },
 };

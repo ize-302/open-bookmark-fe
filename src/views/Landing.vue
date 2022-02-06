@@ -11,21 +11,9 @@
 
 <script>
 import GoogleSignin from "../components/GoogleSignin.vue";
-import {
-  saveTokenInCookies,
-  getTokenFromCookies,
-  // verifyToken,
-} from "@/utils/cookies";
-import { supabase } from "../lib/supabase";
 
 export default {
   components: { GoogleSignin },
   name: "landing",
-  mounted() {
-    supabase.auth.onAuthStateChange((event, session) => {
-      saveTokenInCookies(session?.access_token);
-      if (getTokenFromCookies()) location.href = "/my-bookmarks";
-    });
-  },
 };
 </script>

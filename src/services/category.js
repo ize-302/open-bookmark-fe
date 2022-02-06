@@ -1,9 +1,9 @@
 import Vue from "vue";
-import { supabase } from "../lib/supabase";
-const session = supabase.auth.session();
+import { getTokenFromCookies } from "@/utils/cookies";
+
 const headers = {
   "Content-Type": "application/json",
-  Authorization: `Bearer ${session?.access_token}`,
+  Authorization: `Bearer ${getTokenFromCookies()}`,
 };
 
 const ENDPOINT = `/category`;
