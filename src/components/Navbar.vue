@@ -57,6 +57,7 @@ import { removeTokenFromCookies, getTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
 import SidebarMobile from "@/components/SidebarMobile.vue";
 import UserService from "@/services/users";
+import AuthService from "@/services/auth";
 
 export default {
   data() {
@@ -69,19 +70,19 @@ export default {
   },
   created() {
     const access_token = getTokenFromCookies();
-    if (!verifyToken(access_token)) {
-      this.$router.push("/");
-    } else {
-      const data = verifyToken(access_token);
-      UserService.getUser(data.sub).then((data) => {
-        this.user = data;
-      });
-    }
+    const data = verifyToken(access_token);
+    UserService.getUser(data && data.sub).then((data) => {
+      this.user = data;
+    });
   },
   methods: {
     signout() {
-      removeTokenFromCookies();
-      this.$router.push("/");
+      const refreshToken = localStorage.getItem("refresh_token");
+      AuthService.logout(refreshToken).then(() => {
+        removeTokenFromCookies();
+        localStorage.removeItem("refresh_token");
+        window.location.href = "/";
+      });
     },
   },
 };
