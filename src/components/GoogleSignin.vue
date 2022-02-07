@@ -28,7 +28,10 @@ export default {
     onSuccess(googleUser) {
       AuthService.verify(googleUser.wc.id_token).then((data) => {
         saveTokenInCookies(data.access_token);
-        localStorage.setItem("refresh_token", data.refresh_token);
+        localStorage.setItem(
+          `${this.version()}_refresh_token`,
+          data.refresh_token
+        );
         if (getTokenFromCookies()) {
           window.location.href = "/my-bookmarks";
         }

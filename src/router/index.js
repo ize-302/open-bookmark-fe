@@ -75,15 +75,20 @@ router.beforeEach(async (to, from, next) => {
       // if token is available and expired
       if (!isValidToken) {
         // attempt to refresh token
-        const refresh_token = localStorage.getItem("refresh_token");
+        const refresh_token = localStorage.getItem(
+          `${this.version()}_refresh_token`
+        );
         AuthService.refreshToken(refresh_token)
           .then((data) => {
             saveTokenInCookies(data.access_token);
-            localStorage.setItem("refresh_token", data.refresh_token);
+            localStorage.setItem(
+              `${this.version()}_refresh_token`,
+              data.refresh_token
+            );
             window.location.reload();
           })
           .catch(() => {
-            localStorage.removeItem("refresh_token");
+            localStorage.removeItem(`${this.version()}_refresh_token`);
             removeTokenFromCookies();
             return next({ name: "landing" });
           });

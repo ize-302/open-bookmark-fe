@@ -77,10 +77,12 @@ export default {
   },
   methods: {
     signout() {
-      const refreshToken = localStorage.getItem("refresh_token");
+      const refreshToken = localStorage.getItem(
+        `${this.version()}_refresh_token`
+      );
       AuthService.logout(refreshToken).then(() => {
         removeTokenFromCookies();
-        localStorage.removeItem("refresh_token");
+        localStorage.removeItem(`${this.version()}_refresh_token`);
         window.location.href = "/";
       });
     },
