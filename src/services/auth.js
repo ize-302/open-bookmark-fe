@@ -16,4 +16,14 @@ export default {
         return response.data;
       });
   },
+
+  logout(refresh_token) {
+    return Vue.http
+      .post(`/auth/logout`, {
+        refresh_token: refresh_token,
+      })
+      .then((response) => {
+        return response.data;
+      });
+  },
 };

@@ -57,6 +57,7 @@ import { removeTokenFromCookies, getTokenFromCookies } from "@/utils/cookies";
 import { verifyToken } from "@/utils/jwt";
 import SidebarMobile from "@/components/SidebarMobile.vue";
 import UserService from "@/services/users";
+import AuthService from "@/services/auth";
 
 export default {
   data() {
@@ -76,9 +77,12 @@ export default {
   },
   methods: {
     signout() {
-      removeTokenFromCookies();
-      localStorage.removeItem("refresh_token");
-      window.location.href = "/";
+      const refreshToken = localStorage.getItem("refresh_token");
+      AuthService.logout(refreshToken).then(() => {
+        removeTokenFromCookies();
+        localStorage.removeItem("refresh_token");
+        window.location.href = "/";
+      });
     },
   },
 };

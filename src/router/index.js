@@ -9,7 +9,7 @@ import UserProfile from "@/views/UserProfile/Base.vue";
 import { verifyToken } from "@/utils/jwt";
 import { getTokenFromCookies } from "@/utils/cookies";
 import AuthService from "@/services/auth";
-import { saveTokenInCookies } from "@/utils/cookies";
+import { saveTokenInCookies, removeTokenFromCookies } from "@/utils/cookies";
 
 Vue.use(VueRouter);
 
@@ -54,8 +54,14 @@ const router = new VueRouter({
 
 // https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 router.beforeEach(async (to, from, next) => {
-  const protectedRouteNames = ["myBookmarks", "browse", "trash", "categories"];
-  const unprotectedRouteNames = ["landing", "profile"];
+  const protectedRouteNames = [
+    "myBookmarks",
+    "browse",
+    "trash",
+    "categories",
+    "profile",
+  ];
+  const unprotectedRouteNames = ["landing"];
   // For Protected Routes
   if (protectedRouteNames.includes(to.name)) {
     try {
@@ -70,18 +76,20 @@ router.beforeEach(async (to, from, next) => {
       if (!isValidToken) {
         // attempt to refresh token
         const refresh_token = localStorage.getItem("refresh_token");
-        AuthService.refreshToken(refresh_token).then((data) => {
-          saveTokenInCookies(data.access_token);
-          localStorage.setItem("refresh_token", data.refresh_token);
-          window.location.reload();
-        });
+        AuthService.refreshToken(refresh_token)
+          .then((data) => {
+            saveTokenInCookies(data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
+            window.location.reload();
+          })
+          .catch(() => {
+            localStorage.removeItem("refresh_token");
+            removeTokenFromCookies();
+            return next({ name: "landing" });
+          });
 
         return next();
       }
-      // // if token is unavailable
-      // if (token == null) {
-      //   return next({ name: "landing" });
-      // }
     } catch (e) {
       return next({ name: "landing" });
     }
