@@ -159,13 +159,8 @@ export default {
       });
     },
     deleteBookmark() {
-      BookmarkService.deleteBookmark(this.bookmark.id).then((response) => {
+      BookmarkService.deleteBookmark(this.bookmark.id).then(() => {
         this.$emit("refreshBookmarks");
-        this.$toast({
-          title: response.message,
-          status: "success",
-          position: "top",
-        });
       });
     },
     updatePrivacy() {

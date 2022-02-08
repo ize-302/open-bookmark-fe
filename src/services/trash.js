@@ -10,12 +10,12 @@ const ENDPOINT = `/trash`;
 
 export default {
   fetchUserTrashedBookmarks({ page, per_page }) {
-    return Vue.http
+    return Vue.prototype.$http
       .get(`${ENDPOINT}?q=&page=${page}&per_page=${per_page}`, { headers })
       .then((response) => response.data);
   },
   trashBookmark(id) {
-    return Vue.http
+    return Vue.prototype.$http
       .patch(
         `${ENDPOINT}/${id}/trash`,
         {},
@@ -26,7 +26,7 @@ export default {
       .then((response) => response.data);
   },
   restoreBookmark(id) {
-    return Vue.http
+    return Vue.prototype.$http
       .patch(
         `${ENDPOINT}/${id}/untrash`,
         {},

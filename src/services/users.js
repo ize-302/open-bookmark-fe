@@ -8,7 +8,7 @@ const headers = {
 
 export default {
   addUser() {
-    return Vue.http
+    return Vue.prototype.$http
       .post(
         `/users/add`,
         {},
@@ -19,28 +19,28 @@ export default {
       .then((response) => response.data);
   },
   getUser(sub) {
-    return Vue.http
+    return Vue.prototype.$http
       .get(`/users/${sub}/info`, {
         headers,
       })
       .then((response) => response.data);
   },
   fetchMyBookmarks({ page, per_page }) {
-    return Vue.http
+    return Vue.prototype.$http
       .get(`/users/mybookmarks?q=&page=${page}&per_page=${per_page}`, {
         headers,
       })
       .then((response) => response.data);
   },
   fetchUserPublicBookmarks({ id, page, per_page }) {
-    return Vue.http
+    return Vue.prototype.$http
       .get(`/users/${id}/bookmarks?q=&page=${page}&per_page=${per_page}`, {
         headers,
       })
       .then((response) => response.data);
   },
   followUser(id) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(
         `/users/${id}/follow`,
         {},
@@ -51,7 +51,7 @@ export default {
       .then((response) => response.data);
   },
   unfollowUser(id) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(
         `/users/${id}/unfollow`,
         {},

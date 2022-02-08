@@ -32,7 +32,8 @@ export default {
           `${this.version()}_refresh_token`,
           data.refresh_token
         );
-        if (getTokenFromCookies()) {
+        const accessTokenExists = getTokenFromCookies();
+        if (accessTokenExists) {
           window.location.href = "/my-bookmarks";
         }
       });

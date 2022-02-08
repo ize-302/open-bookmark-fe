@@ -2,13 +2,13 @@ import Vue from "vue";
 
 export default {
   verify(token) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(`/auth/verify?token=${token}`)
       .then((response) => response.data);
   },
 
   refreshToken(refresh_token) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(`/auth/refreshtoken`, {
         refresh_token: refresh_token,
       })
@@ -18,7 +18,7 @@ export default {
   },
 
   logout(refresh_token) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(`/auth/logout`, {
         refresh_token: refresh_token,
       })

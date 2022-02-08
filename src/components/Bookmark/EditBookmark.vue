@@ -106,17 +106,11 @@ export default {
   },
   watch: {
     isOpen() {
-      if (this.isOpen) {
-        this.fetchCategories();
-        this.title = this.bookmark.title;
-        this.url = this.bookmark.url;
-        this.description = this.bookmark.description;
-        this.is_private = this.bookmark.is_private;
-        const findCategory = this.categories.find(
-          (category) => category._id === this.bookmark.category
-        );
-        this.selectedCategory = findCategory._id;
-      }
+      this.fetchCategories();
+      this.title = this.bookmark.title;
+      this.url = this.bookmark.url;
+      this.description = this.bookmark.description;
+      this.is_private = this.bookmark.is_private;
     },
   },
   methods: {
@@ -126,6 +120,10 @@ export default {
     fetchCategories() {
       CategoryService.fetchUserCategories().then((data) => {
         this.categories = data;
+        const findCategory = this.categories.find(
+          (category) => category._id === this.bookmark.category
+        );
+        this.selectedCategory = findCategory._id;
       });
     },
     updateBookmark() {
