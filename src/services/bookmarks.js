@@ -41,7 +41,15 @@ export default {
       .then((response) => response.data);
   },
 
-  updateBookmark({ id, title, url, description, is_private, category }) {
+  updateBookmark({
+    id,
+    title,
+    url,
+    description,
+    is_private,
+    category,
+    oldCategory,
+  }) {
     return Vue.prototype.$http
       .patch(
         `${ENDPOINT}/${id}/update`,
@@ -51,6 +59,7 @@ export default {
           is_private,
           description,
           category,
+          oldCategory,
         },
         {
           headers,

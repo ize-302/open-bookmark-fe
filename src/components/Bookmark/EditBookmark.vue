@@ -102,6 +102,7 @@ export default {
       is_private: false,
       categories: [],
       selectedCategory: "",
+      category: "",
     };
   },
   watch: {
@@ -111,6 +112,7 @@ export default {
       this.url = this.bookmark.url;
       this.description = this.bookmark.description;
       this.is_private = this.bookmark.is_private;
+      this.category = this.bookmark.category;
     },
   },
   methods: {
@@ -133,6 +135,7 @@ export default {
         url: this.url,
         description: this.description,
         is_private: this.is_private,
+        oldCategory: this.category,
         category: this.selectedCategory,
       }).then((response) => {
         this.$toast({

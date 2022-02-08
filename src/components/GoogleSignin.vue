@@ -1,10 +1,18 @@
 <template>
   <div>
-    <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
+    <GoogleLogin
+      v-if="!isLoggedIn"
+      :params="params"
+      :onSuccess="onSuccess"
+      :onFailure="onFailure"
+    >
       <c-button size="lg"
-        ><c-icon name="google" mr="5px" /> Sign in with Google</c-button
+        ><c-icon name="google" mr="5px" /> Sign in with Google 🙏</c-button
       >
     </GoogleLogin>
+    <c-button @click="$router.push({ name: 'myBookmarks' })" v-else size="lg"
+      >Continue to bookmarks 👉</c-button
+    >
   </div>
 </template>
 
@@ -23,6 +31,11 @@ export default {
   },
   components: {
     GoogleLogin,
+  },
+  computed: {
+    isLoggedIn() {
+      return getTokenFromCookies();
+    },
   },
   methods: {
     onSuccess(googleUser) {
