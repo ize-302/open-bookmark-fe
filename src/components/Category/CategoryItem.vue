@@ -9,9 +9,13 @@
       :_hover="{ bg: 'green.50' }"
       cursor="pointer"
     >
-      <c-text ml="10px" fontWeight="500" fontSize="16px"
-        >{{ category.name }}
-      </c-text>
+      <c-stack direction="row" ml="10px" alignItems="center">
+        <c-text fontWeight="500" fontSize="16px">{{ category.name }} </c-text>
+        <c-text fontWeight="500" fontSize="16px" color="gray.400">
+          {{ category.bookmarks.length }}
+          {{ "Bookmark" | pluralize(category.bookmarks.length) }}
+        </c-text>
+      </c-stack>
 
       <c-menu>
         <c-menu-button padding="0" variant-color="transparent">

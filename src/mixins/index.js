@@ -13,6 +13,9 @@ Vue.mixin({
       }
       return false;
     },
+    version() {
+      return process.env.VUE_APP_LS_VERSION.split(".").join("");
+    },
   },
   computed: {
     currentPage() {

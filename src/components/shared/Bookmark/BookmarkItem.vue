@@ -32,7 +32,7 @@
             color="gray.400"
             fontWeight="200"
             fontSize="12px"
-            >Updated on
+            >Updated
             {{ bookmark.updated_at | formatDate("DD MMM YYYY") }}</c-text
           >
 
@@ -159,13 +159,8 @@ export default {
       });
     },
     deleteBookmark() {
-      BookmarkService.deleteBookmark(this.bookmark.id).then((response) => {
+      BookmarkService.deleteBookmark(this.bookmark.id).then(() => {
         this.$emit("refreshBookmarks");
-        this.$toast({
-          title: response.message,
-          status: "success",
-          position: "top",
-        });
       });
     },
     updatePrivacy() {

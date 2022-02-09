@@ -10,14 +10,14 @@ const ENDPOINT = `/category`;
 
 export default {
   fetchUserCategories() {
-    return Vue.http
+    return Vue.prototype.$http
       .get(`/categories`, {
         headers,
       })
       .then((response) => response.data);
   },
   createCategory({ name }) {
-    return Vue.http
+    return Vue.prototype.$http
       .post(
         `${ENDPOINT}/create`,
         {
@@ -30,7 +30,7 @@ export default {
       .then((response) => response.data);
   },
   deleteCategory(id) {
-    return Vue.http
+    return Vue.prototype.$http
       .delete(`${ENDPOINT}/${id}/delete`, {
         headers,
       })
@@ -38,7 +38,7 @@ export default {
   },
 
   updateCategory({ id, name }) {
-    return Vue.http
+    return Vue.prototype.$http
       .patch(
         `${ENDPOINT}/${id}/update`,
         {

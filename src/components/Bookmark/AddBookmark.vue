@@ -28,13 +28,16 @@
           <form @submit.prevent="addBookmark">
             <c-form-control is-required>
               <c-form-label for="url">URL</c-form-label>
-
               <c-input
                 id="url"
                 v-model="url"
                 placeholder="URL here"
                 mb="20px"
-                @blur="fetchUrlTitle()"
+                @blur="
+                  (e) => {
+                    e.target.value && fetchUrlTitle();
+                  }
+                "
               />
             </c-form-control>
 
