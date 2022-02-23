@@ -37,7 +37,7 @@
           >
 
           <c-text
-            v-if="currentPage === 'browse'"
+            v-if="currentPageName === 'browse'"
             mt="10px"
             color="gray.400"
             fontWeight="200"
@@ -74,34 +74,36 @@
           >
           <c-divider
             v-if="
-              currentPage === 'myBookmarks' ||
-              currentPage === 'trash' ||
+              currentPageName === 'myBookmarks' ||
+              currentPageName === 'trash' ||
               isOwnProfile
             "
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="currentPageName === 'myBookmarks' || isOwnProfile"
             @click="updatePrivacy()"
             >Make {{ bookmark.is_private ? "public" : "private" }}</c-menu-item
           >
           <edit-bookmark
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="currentPageName === 'myBookmarks' || isOwnProfile"
             :bookmark="bookmark"
             @fetchBookmarks="$emit('refreshBookmarks')"
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="currentPageName === 'myBookmarks' || isOwnProfile"
             color="red.300"
             @click="trashBookmark()"
             >Delete</c-menu-item
           >
           <c-menu-item
-            v-if="currentPage === 'trash'"
+            v-if="currentPageName === 'trash'"
             color="red.300"
             @click="deleteBookmark()"
             >Delete permanently</c-menu-item
           >
-          <c-menu-item v-if="currentPage === 'trash'" @click="restoreBookmark()"
+          <c-menu-item
+            v-if="currentPageName === 'trash'"
+            @click="restoreBookmark()"
             >Restore</c-menu-item
           >
         </c-menu-list>

@@ -8,12 +8,12 @@ export default {
   },
   mounted() {
     this.fetchBookmarks({
-      page: this.currentPage,
+      page: this.page,
       per_page: this.perPage,
     });
   },
   computed: {
-    currentPage() {
+    page() {
       return this.$route.query.page ? parseInt(this.$route.query.page) : 1;
     },
   },
@@ -28,7 +28,7 @@ export default {
     },
     refreshBookmarks() {
       this.fetchBookmarks({
-        page: this.currentPage,
+        page: this.page,
         per_page: this.perPage,
       });
     },

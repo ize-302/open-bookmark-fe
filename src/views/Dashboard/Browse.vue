@@ -2,7 +2,9 @@
   <dashboard-layout>
     <c-box>
       <c-flex justifyContent="space-between">
-        <c-heading :fontSize="['20px', '24px']">Recent bookmarks</c-heading>
+        <c-heading :fontSize="['20px', '24px']"
+          >Bookmarks by accounts you follow</c-heading
+        >
       </c-flex>
       <c-grid v-if="isEmpty(bookmarks)" placeItems="center" height="50vh">
         <c-heading color="#ddd">No saved Bookmarks!</c-heading>
@@ -16,7 +18,7 @@
           @refreshBookmarks="refreshBookmarks"
         />
         <pagination
-          :page="currentPage"
+          :page="page"
           :resultsPerPage="perPage"
           :totalResults="pageOptions.total_items"
           @changePage="changePage"
@@ -42,7 +44,7 @@ export default {
     BookmarkItem,
   },
   methods: {
-    fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
+    fetchBookmarks({ page = this.page, per_page = this.perPage }) {
       BookmarkService.fetchAllPublicBookmarks({ page, per_page }).then(
         (data) => {
           this.bookmarks = data.items;

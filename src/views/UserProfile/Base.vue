@@ -30,10 +30,6 @@
           />
           <c-box mt="20px">
             <c-text fontSize="26px">{{ user.full_name }}</c-text>
-            <c-text color="gray.400"
-              >Hi there, I'm a Software Developer excited about developing
-              intuitive User Interfaces with awesome User Experiences</c-text
-            >
             <c-pseudo-box
               v-if="!isOwnProfile"
               mt="10px"

@@ -18,7 +18,7 @@ Vue.mixin({
     },
   },
   computed: {
-    currentPage() {
+    currentPageName() {
       return this.$route.name;
     },
     isOwnProfile() {

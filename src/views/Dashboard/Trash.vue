@@ -17,7 +17,7 @@
             @refreshBookmarks="refreshBookmarks"
           />
           <pagination
-            :page="currentPage"
+            :page="page"
             :resultsPerPage="perPage"
             :totalResults="pageOptions.total_items"
             @changePage="changePage"
@@ -43,7 +43,7 @@ export default {
     BookmarkItem,
   },
   methods: {
-    fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
+    fetchBookmarks({ page = this.page, per_page = this.perPage }) {
       TrashService.fetchUserTrashedBookmarks({ page, per_page }).then(
         (data) => {
           this.bookmarks = data.items;
