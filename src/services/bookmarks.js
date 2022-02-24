@@ -11,7 +11,7 @@ const ENDPOINT = `/bookmarks`;
 export default {
   fetchAllPublicBookmarks({ page, per_page }) {
     return Vue.prototype.$http
-      .get(`${ENDPOINT}/browse?q=&page=${page}&per_page=${per_page}`, {
+      .get(`${ENDPOINT}/browse?page=${page}&per_page=${per_page}`, {
         headers,
       })
       .then((response) => response.data);

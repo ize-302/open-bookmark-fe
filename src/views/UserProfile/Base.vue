@@ -30,22 +30,7 @@
           />
           <c-box mt="20px">
             <c-text fontSize="26px">{{ user.full_name }}</c-text>
-            <c-text color="gray.400"
-              >Hi there, I'm a Software Developer excited about developing
-              intuitive User Interfaces with awesome User Experiences</c-text
-            >
-            <c-pseudo-box
-              v-if="!isOwnProfile"
-              mt="10px"
-              as="button"
-              @click="handleFollow()"
-              :bg="isFollowing ? 'red.300' : 'brand.green'"
-              padding="5px 20px"
-              fontWeight="bold"
-              rounded="md"
-              color="white"
-              >{{ isFollowing ? "Unfollow" : "Follow" }}</c-pseudo-box
-            >
+            <follow-button @getUser="getUser" :user="user" />
             <c-stack mt="10px" fontSize="14px" direction="row" :spacing="6">
               <c-link
                 ><b>{{ user.followers && user.followers.length }}</b> followers
@@ -72,6 +57,7 @@ import NavBar from "@/components/Navbar.vue";
 import UserService from "@/services/users";
 import MyBookmarks from "@/components/shared/Bookmark/MyBookmarks.vue";
 import UserPublicBookmarks from "@/components/Bookmark/UserPublicBookmarks.vue";
+import FollowButton from "@/components/FollowButton.vue";
 
 export default {
   data() {
@@ -83,6 +69,7 @@ export default {
     NavBar,
     MyBookmarks,
     UserPublicBookmarks,
+    FollowButton,
   },
   watch: {
     $route() {
@@ -97,19 +84,6 @@ export default {
     },
   },
   methods: {
-    handleFollow() {
-      if (this.isFollowing) {
-        // unfollow
-        UserService.unfollowUser(this.$route.params.id).then(() => {
-          this.getUser();
-        });
-      } else {
-        // follow
-        UserService.followUser(this.$route.params.id).then(() => {
-          this.getUser();
-        });
-      }
-    },
     getUser() {
       UserService.getUser(this.$route.params.id).then((data) => {
         this.user = data;

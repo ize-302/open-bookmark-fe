@@ -16,14 +16,18 @@ Vue.mixin({
     version() {
       return process.env.VUE_APP_LS_VERSION.split(".").join("");
     },
+    isOwnProfile(viewedUser) {
+      const loggedUser = verifyToken(access_token);
+      return loggedUser.sub === viewedUser.sub;
+    },
+    isFollowing(user) {
+      const loggedUser = verifyToken(access_token);
+      return user.followers && user.followers.includes(loggedUser.sub);
+    },
   },
   computed: {
-    currentPage() {
+    currentPageName() {
       return this.$route.name;
-    },
-    isOwnProfile() {
-      const user = verifyToken(access_token);
-      return user.sub === this.$route.params.id;
     },
     loggedUser() {
       return verifyToken(access_token);

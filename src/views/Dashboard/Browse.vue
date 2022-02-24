@@ -2,12 +2,30 @@
   <dashboard-layout>
     <c-box>
       <c-flex justifyContent="space-between">
-        <c-heading :fontSize="['20px', '24px']">Recent bookmarks</c-heading>
+        <c-heading :fontSize="['20px', '24px']"
+          >Bookmarks by accounts you follow</c-heading
+        >
       </c-flex>
-      <c-grid v-if="isEmpty(bookmarks)" placeItems="center" height="50vh">
-        <c-heading color="#ddd">No saved Bookmarks!</c-heading>
-      </c-grid>
-      <c-box v-else mt="20px">
+      <c-flex
+        v-if="isEmpty(bookmarks)"
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        height="50vh"
+      >
+        <c-spinner
+          v-if="isLoading && isEmpty(bookmarks)"
+          thickness="4px"
+          speed="0.65s"
+          empty-color="green.200"
+          color="vue.500"
+          size="xl"
+        />
+        <c-heading v-if="!isLoading && isEmpty(bookmarks)" color="#ddd"
+          >No saved Bookmarks!</c-heading
+        >
+      </c-flex>
+      <c-box v-if="!isLoading && !isEmpty(bookmarks)" mt="20px">
         <bookmark-item
           v-for="(bookmark, index) in bookmarks"
           :key="bookmark.title"
@@ -16,7 +34,7 @@
           @refreshBookmarks="refreshBookmarks"
         />
         <pagination
-          :page="currentPage"
+          :page="page"
           :resultsPerPage="perPage"
           :totalResults="pageOptions.total_items"
           @changePage="changePage"
@@ -42,11 +60,12 @@ export default {
     BookmarkItem,
   },
   methods: {
-    fetchBookmarks({ page = this.currentPage, per_page = this.perPage }) {
+    fetchBookmarks({ page = this.page, per_page = this.perPage }) {
       BookmarkService.fetchAllPublicBookmarks({ page, per_page }).then(
         (data) => {
           this.bookmarks = data.items;
           this.pageOptions = data.paginator;
+          this.isLoading = false;
         }
       );
     },

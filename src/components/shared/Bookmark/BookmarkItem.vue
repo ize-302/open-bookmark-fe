@@ -32,12 +32,11 @@
             color="gray.400"
             fontWeight="200"
             fontSize="12px"
-            >Updated
-            {{ bookmark.updated_at | formatDate("DD MMM YYYY") }}</c-text
+            >Added {{ bookmark.created_at | formatDate("DD MMM YYYY") }}</c-text
           >
 
           <c-text
-            v-if="currentPage === 'browse'"
+            v-if="currentPageName === 'browse' || currentPageName === 'search'"
             mt="10px"
             color="gray.400"
             fontWeight="200"
@@ -74,34 +73,42 @@
           >
           <c-divider
             v-if="
-              currentPage === 'myBookmarks' ||
-              currentPage === 'trash' ||
-              isOwnProfile
+              currentPageName === 'myBookmarks' ||
+              currentPageName === 'trash' ||
+              isOwnProfile(bookmark.author)
             "
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="
+              currentPageName === 'myBookmarks' || isOwnProfile(bookmark.author)
+            "
             @click="updatePrivacy()"
             >Make {{ bookmark.is_private ? "public" : "private" }}</c-menu-item
           >
           <edit-bookmark
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="
+              currentPageName === 'myBookmarks' || isOwnProfile(bookmark.author)
+            "
             :bookmark="bookmark"
             @fetchBookmarks="$emit('refreshBookmarks')"
           />
           <c-menu-item
-            v-if="currentPage === 'myBookmarks' || isOwnProfile"
+            v-if="
+              currentPageName === 'myBookmarks' || isOwnProfile(bookmark.author)
+            "
             color="red.300"
             @click="trashBookmark()"
             >Delete</c-menu-item
           >
           <c-menu-item
-            v-if="currentPage === 'trash'"
+            v-if="currentPageName === 'trash'"
             color="red.300"
             @click="deleteBookmark()"
             >Delete permanently</c-menu-item
           >
-          <c-menu-item v-if="currentPage === 'trash'" @click="restoreBookmark()"
+          <c-menu-item
+            v-if="currentPageName === 'trash'"
+            @click="restoreBookmark()"
             >Restore</c-menu-item
           >
         </c-menu-list>
@@ -129,7 +136,6 @@ export default {
       type: Number,
     },
   },
-
   methods: {
     onCopy() {
       this.$toast({

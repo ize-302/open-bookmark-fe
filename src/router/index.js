@@ -5,6 +5,7 @@ import MyBookmarksPage from "@/views/Dashboard/MyBookmarksPage.vue";
 import Browse from "@/views/Dashboard/Browse.vue";
 import Trash from "@/views/Dashboard/Trash.vue";
 import Categories from "@/views/Dashboard/Categories.vue";
+import GlobalSearch from "@/views/Dashboard/Search.vue";
 import UserProfile from "@/views/UserProfile/Base.vue";
 
 Vue.use(VueRouter);
@@ -19,6 +20,11 @@ const routes = [
     path: "/my-bookmarks",
     name: "myBookmarks",
     component: MyBookmarksPage,
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: GlobalSearch,
   },
   {
     path: "/browse",
