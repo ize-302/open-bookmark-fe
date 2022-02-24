@@ -4,10 +4,26 @@
       <c-heading :fontSize="['20px', '24px']">My Bookmarks</c-heading>
       <add-bookmark @fetchBookmarks="refreshBookmarks()" />
     </c-flex>
-    <c-grid v-if="isEmpty(bookmarks)" placeItems="center" height="50vh">
-      <c-heading color="#ddd">No saved Bookmarks!</c-heading>
-    </c-grid>
-    <c-box v-else mt="20px">
+    <c-flex
+      v-if="isEmpty(bookmarks)"
+      alignItems="center"
+      justifyContent="center"
+      width="100%"
+      height="50vh"
+    >
+      <c-spinner
+        v-if="isLoading && isEmpty(bookmarks)"
+        thickness="4px"
+        speed="0.65s"
+        empty-color="green.200"
+        color="vue.500"
+        size="xl"
+      />
+      <c-heading v-if="!isLoading && isEmpty(bookmarks)" color="#ddd"
+        >No saved Bookmarks!</c-heading
+      >
+    </c-flex>
+    <c-box v-if="!isLoading && !isEmpty(bookmarks)" mt="20px">
       <bookmark-item
         v-for="(bookmark, index) in bookmarks"
         :key="bookmark.index"
@@ -49,6 +65,7 @@ export default {
       }).then((data) => {
         this.bookmarks = data.items;
         this.pageOptions = data.paginator;
+        this.isLoading = false;
       });
     },
   },

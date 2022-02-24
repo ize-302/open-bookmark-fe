@@ -4,6 +4,7 @@ export default {
       bookmarks: [],
       pageOptions: {},
       perPage: 20,
+      isLoading: true,
     };
   },
   mounted() {
