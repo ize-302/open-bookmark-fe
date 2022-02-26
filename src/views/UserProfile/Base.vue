@@ -30,7 +30,7 @@
           />
           <c-box mt="20px">
             <c-text fontSize="26px">{{ user.full_name }}</c-text>
-            <follow-button @getUser="getUser" :user="user" />
+            <follow-button @update="getUser" :user="user" />
             <c-stack mt="10px" fontSize="14px" direction="row" :spacing="6">
               <c-link
                 ><b>{{ user.followers && user.followers.length }}</b> followers

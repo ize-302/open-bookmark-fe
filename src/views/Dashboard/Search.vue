@@ -34,7 +34,7 @@
     <c-heading
       mt="50px"
       mb="20px"
-      v-if="result.length > 0"
+      v-if="!isEmpty(result)"
       :fontSize="['20px', '24px']"
       >Search results</c-heading
     >
