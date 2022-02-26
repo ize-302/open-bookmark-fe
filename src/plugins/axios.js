@@ -25,9 +25,7 @@ export default {
         const refreshToken = window.localStorage.getItem(
           `${version}_refresh_token`
         );
-        if (!accessToken) {
-          //
-        } else if (accessToken) {
+        if (accessToken) {
           if (!isValidToken) {
             AuthService.refreshToken(refreshToken)
               .then((data) => {
