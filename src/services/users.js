@@ -7,17 +7,6 @@ const headers = {
 };
 
 export default {
-  addUser() {
-    return Vue.prototype.$http
-      .post(
-        `/users/add`,
-        {},
-        {
-          headers,
-        }
-      )
-      .then((response) => response.data);
-  },
   getUser(sub) {
     return Vue.prototype.$http
       .get(`/users/${sub}/info`, {
