@@ -4,6 +4,19 @@
       <c-heading :fontSize="['20px', '24px']">My Bookmarks</c-heading>
       <add-bookmark @fetchBookmarks="refreshBookmarks()" />
     </c-flex>
+    <form @submit.prevent="fetchBookmarks">
+      <c-stack direction="row" spacing="2" mt="20px">
+        <c-input-group width="100%">
+          <c-input-left-element
+            ><c-icon name="search" color="gray.300"
+          /></c-input-left-element>
+          <c-input v-model="searchQuery" type="text" placeholder="Search" />
+        </c-input-group>
+        <c-button variant-color="green" px="30px" type="submit"
+          >Search</c-button
+        >
+      </c-stack>
+    </form>
     <c-flex
       v-if="isEmpty(bookmarks)"
       alignItems="center"
@@ -20,7 +33,7 @@
         size="xl"
       />
       <c-heading v-if="!isLoading && isEmpty(bookmarks)" color="#ddd"
-        >No saved Bookmarks!</c-heading
+        >No Bookmark!</c-heading
       >
     </c-flex>
     <c-box v-if="!isLoading && !isEmpty(bookmarks)" mt="20px">
@@ -58,8 +71,13 @@ export default {
     BookmarkItem,
   },
   methods: {
-    fetchBookmarks({ page = this.page, per_page = this.perPage }) {
+    fetchBookmarks({
+      q = this.searchQuery,
+      page = this.page,
+      per_page = this.perPage,
+    }) {
       UserService.fetchMyBookmarks({
+        q,
         page,
         per_page,
       }).then((data) => {

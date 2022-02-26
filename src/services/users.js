@@ -7,17 +7,6 @@ const headers = {
 };
 
 export default {
-  addUser() {
-    return Vue.prototype.$http
-      .post(
-        `/users/add`,
-        {},
-        {
-          headers,
-        }
-      )
-      .then((response) => response.data);
-  },
   getUser(sub) {
     return Vue.prototype.$http
       .get(`/users/${sub}/info`, {
@@ -25,9 +14,9 @@ export default {
       })
       .then((response) => response.data);
   },
-  fetchMyBookmarks({ page, per_page }) {
+  fetchMyBookmarks({ q, page, per_page }) {
     return Vue.prototype.$http
-      .get(`/users/mybookmarks?q=&page=${page}&per_page=${per_page}`, {
+      .get(`/users/mybookmarks?q=${q}&page=${page}&per_page=${per_page}`, {
         headers,
       })
       .then((response) => response.data);

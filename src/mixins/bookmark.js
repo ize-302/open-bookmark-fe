@@ -5,10 +5,12 @@ export default {
       pageOptions: {},
       perPage: 20,
       isLoading: true,
+      searchQuery: "",
     };
   },
   mounted() {
     this.fetchBookmarks({
+      q: this.searchQuery,
       page: this.page,
       per_page: this.perPage,
     });
@@ -20,7 +22,11 @@ export default {
   },
   watch: {
     "$route.query.page"(newPage) {
-      this.fetchBookmarks({ page: newPage, per_page: this.perPage });
+      this.fetchBookmarks({
+        q: this.searchQuery,
+        page: newPage,
+        per_page: this.perPage,
+      });
     },
   },
   methods: {
@@ -29,6 +35,7 @@ export default {
     },
     refreshBookmarks() {
       this.fetchBookmarks({
+        q: this.searchQuery,
         page: this.page,
         per_page: this.perPage,
       });
