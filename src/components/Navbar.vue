@@ -19,7 +19,7 @@
         <sidebar-mobile />
         <c-link as="router-link" :to="{ name: 'myBookmarks' }">
           <c-heading marginLeft="10px" fontSize="20px" color="brand.green"
-            >OpenBookmark</c-heading
+            ><c-icon name="bookmark" /> OpenBookmark</c-heading
           >
         </c-link>
       </c-flex>

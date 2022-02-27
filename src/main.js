@@ -30,6 +30,8 @@ import {
   faArrowLeft,
   faBars,
   faSearch,
+  faDownload,
+  faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.use(Chakra, {
@@ -51,6 +53,8 @@ Vue.use(Chakra, {
       faArrowLeft,
       faBars,
       faSearch,
+      faDownload,
+      faBookmark,
     },
   },
   extendTheme: customTheme,

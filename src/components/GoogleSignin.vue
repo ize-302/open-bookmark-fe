@@ -6,8 +6,18 @@
       :onSuccess="onSuccess"
       :onFailure="onFailure"
     >
-      <c-button size="lg"
-        ><c-icon name="google" mr="5px" /> Sign in with Google 🙏</c-button
+      <c-button
+        size="lg"
+        rounded="10px"
+        bg="transparent"
+        color="green.700"
+        fontWeight="500"
+        padding="0"
+        :_hover="{
+          bg: 'transparent',
+          textDecoration: 'underline',
+        }"
+        >Sign in</c-button
       >
     </GoogleLogin>
     <c-button @click="$router.push({ name: 'myBookmarks' })" v-else size="lg"
