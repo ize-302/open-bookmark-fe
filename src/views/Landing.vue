@@ -20,8 +20,7 @@
     <c-grid placeItems="center">
       <c-box textAlign="center" marginTop="50px">
         <c-heading :fontSize="['24px', '32px', '54px']"
-          >Your fave's bookmarks,<br />
-          in one place
+          >All your bookmarks <br />in one open space
         </c-heading>
         <c-flex
           :direction="['column', 'column', 'row']"
