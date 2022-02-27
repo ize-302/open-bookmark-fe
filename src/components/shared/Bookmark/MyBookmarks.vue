@@ -4,7 +4,7 @@
       <c-heading :fontSize="['20px', '24px']">My Bookmarks</c-heading>
       <add-bookmark @fetchBookmarks="refreshBookmarks()" />
     </c-flex>
-    <form @submit.prevent="fetchBookmarks">
+    <form v-if="!isEmpty(bookmarks)" @submit.prevent="fetchBookmarks">
       <c-stack direction="row" spacing="2" mt="20px">
         <c-input-group width="100%">
           <c-input-left-element
