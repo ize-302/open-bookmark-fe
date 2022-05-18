@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onSuccess(googleUser) {
-      AuthService.verify(googleUser.wc.id_token).then((data) => {
+      AuthService.verify(googleUser.xc.id_token).then((data) => {
         saveTokenInCookies(data.access_token);
         localStorage.setItem(
           `${this.version()}_refresh_token`,
