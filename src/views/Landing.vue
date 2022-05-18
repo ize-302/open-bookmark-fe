@@ -22,7 +22,7 @@
         <c-heading :fontSize="['24px', '32px', '54px']"
           >All your bookmarks <br />in one open space
         </c-heading>
-        <c-flex
+        <!-- <c-flex
           :direction="['column', 'column', 'row']"
           marginTop="20px"
           gap="20px"
@@ -54,7 +54,7 @@
           >
             <c-icon mr="10px" name="download" /> Firefox Extension</c-button
           >
-        </c-flex>
+        </c-flex> -->
       </c-box>
 
       <c-box :margin="['50px 20px 0 20px']">
