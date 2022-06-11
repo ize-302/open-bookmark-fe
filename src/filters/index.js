@@ -20,7 +20,8 @@ Vue.filter("pluralize", (text, count) => {
 
 // format date
 Vue.filter("formatDate", (date, format) => {
-  return moment().diff(date, "days") > -28
-    ? moment(date).fromNow()
-    : moment(date).format(format);
+  const timestamp = parseInt(date);
+  return moment().diff(timestamp, "days") > -28
+    ? moment(timestamp).fromNow()
+    : moment(timestamp).format(format);
 });
