@@ -29,8 +29,8 @@
           <c-text
             mr="20px"
             mt="10px"
-            color="gray.400"
-            fontWeight="200"
+            color="gray.600"
+            fontWeight="400"
             fontSize="12px"
             >Added {{ bookmark.created_at | formatDate("DD MMM YYYY") }}</c-text
           >
